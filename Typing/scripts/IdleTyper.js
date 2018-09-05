@@ -233,7 +233,7 @@ angular.module('typerApp', [])
     
     $scope.$watch("typer.data.word", function() {
       if (typer.data.currentWord) {
-        if (typer.data.word == typer.data.currentWord.word) {        
+        if (typer.data.word.toUpperCase() == typer.data.currentWord.word.toUpperCase()) {        
           typer.data.money += typer.data.currentWord.typeCount == 0 ? 5 * typer.data.currentWord.length * typer.data.keyboardEffectMultiplier : typer.data.currentWord.length * typer.data.keyboardEffectMultiplier;
           typer.data.currentWord.typeCount++;
           typer.data.correct = true;
@@ -249,7 +249,7 @@ angular.module('typerApp', [])
           }
         };
 
-        if (!typer.data.currentWord.word.startsWith(typer.data.word) ) {
+        if (!typer.data.currentWord.word.toUpperCase().startsWith(typer.data.word.toUpperCase()) ) {
           typer.data.incorrect = true;
           typer.data.currentWord.mistypeCount++;
 
@@ -264,7 +264,7 @@ angular.module('typerApp', [])
 
     $(document).keypress(function(e){
       if (!typer.data.correct && !typer.data.incorrect) {
-        typer.data.word += e.key;
+        typer.data.word += e.key.toUpperCase();
         $scope.$apply();
       }
     });

@@ -32,6 +32,7 @@
                 <h4 class="text-white">About</h4>
                 <p class="text-muted">My first incremental game! I have no idea what i'm doing! Don't judge me for my (lack of) JavaScript skills.</p>
                 <p class="text-muted">Type words to get money. Spend money to gain access to more words. You win once you've typed the 10,000 most common words in the english language.</p>
+                <p class="text-muted">You'll have to type 'A' a bunch to get started.</p>
                 <p><a ng-click="typer.deleteSave();" href="#" class="deleteLink">Delete Save</a></p>
               </div>
               <div class="col-sm-4 offset-md-1 py-4">
@@ -127,19 +128,27 @@
                 </div>
               </div>
               <br><br>
-              <button id="btnSpace" ng-disabled="typer.data.money < typer.data.spaceCost" ng-if="typer.data.space < typer.data.maxSpace" ng-click="typer.purchaseSpace();" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Increases max word size.">
-                Buy Space - ${{typer.data.spaceCost | number}}
-              </button>
-              <button id="btnLuck"  ng-disabled="typer.data.money < typer.data.luckCost" ng-if="typer.data.luck < typer.data.maxLuck" ng-click="typer.purchaseLuck();" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Increases the chance of getting a word you've never seen.">
-                Buy Luck - ${{typer.data.luckCost | number}}
-              </button>
+              <div class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="top" title="Increases max word size by 1 space.">
+                <button id="btnSpace" ng-style="{ 'pointer-events' : (typer.data.money < typer.data.spaceCost) ? 'none' : 'auto' }"  ng-disabled="typer.data.money < typer.data.spaceCost" ng-if="typer.data.space < typer.data.maxSpace" ng-click="typer.purchaseSpace();" type="button" class="btn btn-secondary">
+                  Buy Space - ${{typer.data.spaceCost | number}}
+                </button>
+              </div>
+              <div class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="top" title="Increases the chance of getting a word you've never seen by 1%.">
+                <button id="btnLuck"  ng-style="{ 'pointer-events' : (typer.data.money < typer.data.luckCost) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.data.luckCost" ng-if="typer.data.luck < typer.data.maxLuck" ng-click="typer.purchaseLuck();" type="button" class="btn btn-secondary" >
+                  Buy Luck - ${{typer.data.luckCost | number}}
+                </button>
+              </div>
               <br><br>
-              <button id="btnKeyboard"  ng-disabled="typer.data.money < typer.data.keyboardCost" ng-click="typer.purchaseKeyboard();" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Increases money earned from typing.">
-                Improve Keyboard - ${{typer.data.keyboardCost | number}}
-              </button>
-              <button id="btnSpeed"  ng-disabled="typer.data.money < typer.data.speedCost" ng-if="typer.data.speed > 0" ng-click="typer.purchaseSpeed();" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Decreases time between words.">
-                Improve Speed - ${{typer.data.speedCost | number}}
-              </button>
+              <div class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="top" title="Increases money earned by $1 per letter.">
+                <button id="btnKeyboard" ng-style="{ 'pointer-events' : (typer.data.money < typer.data.keyboardCost) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.data.keyboardCost" ng-click="typer.purchaseKeyboard();" type="button" class="btn btn-secondary">
+                  Improve Keyboard - ${{typer.data.keyboardCost | number}}
+                </button>
+              </div>
+              <div class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="top" title="Decreases time between words by .1 seconds.">
+                <button id="btnSpeed" ng-style="{ 'pointer-events' : (typer.data.money < typer.data.speedCost) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.data.speedCost" ng-if="typer.data.speed > 0" ng-click="typer.purchaseSpeed();" type="button" class="btn btn-secondary">
+                  Improve Speed - ${{typer.data.speedCost | number}}
+                </button>
+              </div>
             </div>
           </div>   
         </section>

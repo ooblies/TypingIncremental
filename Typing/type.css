@@ -7,11 +7,13 @@
  .grey {
      background: #e9ecef;
  }
-
+ .disabled {
+  pointer-events: all !important;
+}
  .deleteLink {
   color: white; 
  }
- 
+
  .deleteLink:hover{
   color: inherit; /* Inherits color property from its parent */
 }
