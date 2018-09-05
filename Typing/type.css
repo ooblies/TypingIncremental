@@ -7,9 +7,24 @@
  .grey {
      background: #e9ecef;
  }
+
+ .deleteLink {
+  color: white; 
+ }
+ 
+ .deleteLink:hover{
+  color: inherit; /* Inherits color property from its parent */
+}
+
 .newBadge {
     font-size: 15px;
-    vertical-align: text-top;
+    margin-top:15px;
+}
+
+.currentWord {
+  font-size:64px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .footer {

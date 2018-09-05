@@ -11,9 +11,7 @@ $(function() {
 
 angular.module('typerApp', [])
   .controller('TyperController', function($http, $scope, $timeout, $interval) {
-    var typer = this;
-
-    
+    var typer = this;   
 
     if (localStorage.TypingSave) {
       var data = localStorage.getItem('TypingSave');
@@ -27,31 +25,37 @@ angular.module('typerApp', [])
       typer.data.money = 0;
       typer.data.correct = false;
       typer.data.incorrect = false;
-      typer.data.vowelCost = 50;
+      typer.data.vowelCost = 1000;
+      typer.data.vowelMultiplier = 4;
       typer.data.consonantCost = 10;
+      typer.data.consonantMultiplier = 2;
       typer.data.space = 1;
       typer.data.maxSpace = 20;
       typer.data.spaceCost = 20;
+      typer.data.spaceMultiplier = 2.5;
       typer.data.luck = 0;
       typer.data.maxLuck = 100;
-      typer.data.luckCost = 50;
-      typer.data.multiplier = 1.5;
+      typer.data.luckCost = 500;
+      typer.data.luckMultiplier = 1.1;
       typer.data.unlockedLetters = ["A"];
       typer.data.unlockedVowels = 1;
       typer.data.unlockedConsonants = 0;
       typer.data.keyboardCost = 100;
-      typer.data.keyboardMultiplier = 1;
+      typer.data.keyboardEffectMultiplier = 1;
+      typer.data.keyboardMultiplier = 2;
       typer.data.speed = 1000;
-      typer.data.speedCost = 1000;      
-      typer.data.admin = false;
+      typer.data.speedCost = 10000;   
+      typer.data.speedMultiplier = 2;   
+      typer.data.time = 0;
+      typer.data.alertTime = 3000;
 
       $http.get("words/words.txt").then(function success(response) {      
         typer.data.wordData = response.data.split("\n"[0]);
   
         typer.data.wordData.forEach(function(element) {
           typer.data.words.push({
-            word:element,
-            length:element.length,
+            word:element.trim(),
+            length:element.trim().length,
             typeCount:0,
             mistypeCount:0,
           })
@@ -67,6 +71,7 @@ angular.module('typerApp', [])
     }
 
     $interval(function() {
+      typer.data.time += 5;
       localStorage.setItem('TypingSave', JSON.stringify(typer.data));
     }, 5000);
     
@@ -121,8 +126,7 @@ angular.module('typerApp', [])
     typer.purchaseSpace = function() {
       typer.data.money -= typer.data.spaceCost;
       typer.data.space++;
-      typer.getNewWord();
-      typer.data.spaceCost = Math.floor(typer.data.spaceCost * typer.data.multiplier);
+      typer.data.spaceCost = Math.floor(typer.data.spaceCost * typer.data.spaceMultiplier);
 
       $('#btnSpace').tooltip('hide')
     };
@@ -130,23 +134,22 @@ angular.module('typerApp', [])
     typer.purchaseLuck = function() {
       typer.data.money -= typer.data.luckCost;
       typer.data.luck++;
-      typer.getNewWord();
-      typer.data.luckCost = Math.floor(typer.data.luckCost * typer.data.multiplier);
+      typer.data.luckCost = Math.floor(typer.data.luckCost * typer.data.luckMultiplier);
 
       $('#btnLuck').tooltip('hide')
     };
 
     typer.purchaseKeyboard = function() {
       typer.data.money -= typer.data.keyboardCost;
-      typer.data.keyboardCost = Math.floor(typer.data.keyboardCost * typer.data.multiplier);
-      typer.data.keyboardMultiplier++;
+      typer.data.keyboardCost = Math.floor(typer.data.keyboardCost * typer.data.keyboardMultiplier);
+      typer.data.keyboardEffectMultiplier++;
 
       $('#btnKeyboard').tooltip('hide')
     };
 
     typer.purchaseSpeed = function() {
       typer.data.money -= typer.data.speedCost;
-      typer.data.speedCost = Math.floor(typer.data.speedCost * typer.data.multiplier);
+      typer.data.speedCost = Math.floor(typer.data.speedCost * typer.data.speedMultiplier);
       typer.data.speed-=100;
 
       $('#btnSpeed').tooltip('hide')
@@ -155,46 +158,98 @@ angular.module('typerApp', [])
     typer.purchaseVowel = function(letter) {
       typer.data.money -= typer.data.vowelCost;
       typer.data.unlockedLetters.push(letter.toUpperCase());
-      typer.data.vowelCost = Math.floor(typer.data.vowelCost * typer.data.multiplier);
+      typer.data.vowelCost = Math.floor(typer.data.vowelCost * typer.data.vowelMultiplier);
       typer.data.unlockedVowels++;
-      typer.getNewWord();
     };
 
     typer.purchaseConsonant = function(letter) {
       typer.data.money -= typer.data.consonantCost;
       typer.data.unlockedLetters.push(letter.toUpperCase());
-      typer.data.consonantCost = Math.floor(typer.data.consonantCost * typer.data.multiplier);
+      typer.data.consonantCost = Math.floor(typer.data.consonantCost * typer.data.consonantMultiplier);
       typer.data.unlockedConsonants++;
-      typer.getNewWord();
     };
     
     typer.displayLetter = function(letter) {
       return !typer.data.unlockedLetters.includes(letter);
     };
 
+    typer.win = function() {
+      typer.data.words.forEach(function(element) {
+        var typed = Math.floor(Math.random() * 101);
+        var mistyped = Math.floor(Math.random() * 101);
+        element.typeCount = typed;
+        element.mistypeCount = mistyped;
+      });
+    };
+
+    typer.winScreen = function() {
+      $('#winModal').modal('show');
+    }
+
+    typer.sum = function(items, prop){
+      return items.reduce( function(a, b){
+          return a + b[prop];
+      }, 0);
+    };
+
+    typer.getTotalWordsTyped = function() {
+      return typer.sum(typer.data.words, "typeCount");
+    };
+
+    typer.getTotalWordsMistyped = function() {
+      return typer.sum(typer.data.words, "mistypeCount");
+    };
+
+    typer.getMostTyped = function() {
+      var most = { typeCount: 0};
+      typer.data.words.forEach(function (element) {
+        if (element.typeCount > most.typeCount) {
+          most = element;
+        }
+      });
+      
+      return most;
+    };
+
+    typer.getMostMistyped = function() {
+      var most = { mistypeCount: 0};
+      typer.data.words.forEach(function (element) {
+        if (element.mistypeCount > most.mistypeCount) {
+          most = element;
+        }
+      });
+      
+      return most;
+    };
+    
+    typer.getHours = function() {
+      return Math.floor(typer.data.time / 60 / 60);
+    };
+    
+    typer.getMinutes = function() {
+      return Math.floor((typer.data.time / 60) % 60);
+    };
 
     
     $scope.$watch("typer.data.word", function() {
       if (typer.data.currentWord) {
         if (typer.data.word == typer.data.currentWord.word) {        
-          typer.data.money += typer.data.currentWord.typeCount == 0 ? 5 * typer.data.currentWord.length * typer.data.keyboardMultiplier : typer.data.currentWord.length * typer.data.keyboardMultiplier;
+          typer.data.money += typer.data.currentWord.typeCount == 0 ? 5 * typer.data.currentWord.length * typer.data.keyboardEffectMultiplier : typer.data.currentWord.length * typer.data.keyboardEffectMultiplier;
           typer.data.currentWord.typeCount++;
           typer.data.correct = true;
 
-          $timeout(function() {
-            typer.getNewWord();
-            typer.data.word = "";
-            typer.data.correct = false;
-          }, typer.data.speed);
+          if (typer.getWordsTyped() == typer.data.words.letngh) {
+            typer.winScreen();
+          } else {
+            $timeout(function() {
+              typer.getNewWord();
+              typer.data.word = "";
+              typer.data.correct = false;
+            }, typer.data.speed);
+          }
         };
 
-        if (typer.data.word.toUpperCase() == "ADMIN") {
-          typer.data.admin = !typer.data.admin;
-          
-          typer.data.word = "";
-        }
-
-        if (!typer.data.currentWord.word.startsWith(typer.data.word) && !"admin".startsWith(typer.data.word)) {
+        if (!typer.data.currentWord.word.startsWith(typer.data.word) ) {
           typer.data.incorrect = true;
           typer.data.currentWord.mistypeCount++;
 
