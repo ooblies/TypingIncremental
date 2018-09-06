@@ -184,7 +184,7 @@
       <footer class="text-white footer bg-dark text-center">
           <div class="navbar navbar-inverse navbar-dark bg-dark shadow-sm" style="padding: 0px 0px 0px 0px;">
               <div class="container d-flex justify-content-between">
-                  <div>Time Played: {{typer.getHours()}}h {{typer.getMinutes()}}m</div>
+                  <div>Time Played: {{typer.getHours() | number}}h {{typer.getMinutes()}}m</div>
                   <div>{{typer.getWordsTyped() | number}} / {{typer.data.words.length | number}} words found</div>
                   <div>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -199,9 +199,9 @@
               
               
               <div class="container d-flex justify-content-between">
-                  <div>{{typer.getTotalWordsTyped()}} words typed</div>
-                  <div>{{typer.getUnlockedWords().length}} / {{typer.data.words.length | number}} words unlocked</div>
-                  <div>{{typer.getTotalWordsMistyped()}} typos</div>
+                  <div>{{typer.getTotalWordsTyped() | number}} words typed</div>
+                  <div>{{typer.getUnlockedWords().length | number}} / {{typer.data.words.length | number}} words unlocked</div>
+                  <div>{{typer.getTotalWordsMistyped()} | number} typos</div>
               </div>
             <div class="container d-flex justify-content-between">
                 <div>Most typed : {{typer.getMostTyped().word | uppercase}} - {{typer.getMostTyped().typeCount}} times</div>  
