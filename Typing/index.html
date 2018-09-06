@@ -182,14 +182,35 @@
         </div>
       </main>
       <footer class="text-white footer bg-dark text-center">
-          <div class="container">
-            <div class="row">
-              <div class="col-4">{{typer.getTotalWordsTyped()}} words typed</div>
-              <div class="col-4">{{typer.getWordsTyped() | number}} / {{typer.data.words.length | number}} words found</div>
-              <div class="col-4">{{typer.getTotalWordsMistyped()}} typos</div>
-            </div>            
+          <div class="navbar navbar-inverse navbar-dark bg-dark shadow-sm" style="padding: 0px 0px 0px 0px;">
+              <div class="container d-flex justify-content-between">
+                  <div>Time Played: {{typer.getHours()}}h {{typer.getMinutes()}}m</div>
+                  <div>{{typer.getWordsTyped() | number}} / {{typer.data.words.length | number}} words found</div>
+                  <div>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarFooter" aria-controls="navbarFooter" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  </div>  
+              </div>
+            </div>
+
+          <div class="collapse bg-dark" id="navbarFooter">
+              
+              
+              <div class="container d-flex justify-content-between">
+                  <div>{{typer.getTotalWordsTyped()}} words typed</div>
+                  <div>{{typer.getUnlockedWords().length}} / {{typer.data.words.length | number}} words unlocked</div>
+                  <div>{{typer.getTotalWordsMistyped()}} typos</div>
+              </div>
+            <div class="container d-flex justify-content-between">
+                <div>Most typed : {{typer.getMostTyped().word | uppercase}} - {{typer.getMostTyped().typeCount}} times</div>  
+                <div>Longest word : {{typer.getLongestWord() | uppercase}}</div>
+                <div>Most mistyped : {{typer.getMostMistyped().word | uppercase}} - {{typer.getMostMistyped().mistypeCount}} times</div>                  
+            </div>
+        
           </div>
-        </footer>
+      </footer>
     </div>
   </body>
 </html>

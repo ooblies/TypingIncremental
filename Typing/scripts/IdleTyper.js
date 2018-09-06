@@ -90,7 +90,8 @@ angular.module('typerApp', [])
       return typed;
     }
 
-    typer.getNewWord = function() { 
+
+    typer.getUnlockedWords = function() {
       var filtered = typer.data.words.filter(function(word) {
         var unlocked = true;    
 
@@ -108,7 +109,12 @@ angular.module('typerApp', [])
         }
         return unlocked;
       });
-      //unlocked letters
+
+      return filtered;
+    };
+
+    typer.getNewWord = function() { 
+      var filtered = typer.getUnlockedWords()
 
       var filteredNew = filtered.filter(word => word.typeCount == 0);
       
@@ -230,6 +236,19 @@ angular.module('typerApp', [])
       return Math.floor((typer.data.time / 60) % 60);
     };
 
+    typer.getLongestWord = function() {
+      var typedWords = typer.data.words.filter(word => word.typeCount > 0);
+
+      var longWord = "A";
+
+      typedWords.forEach(function(element) {
+        if (element.word.length > longWord.length) {
+          longWord = element.word;
+        }
+      });
+
+      return longWord;
+    };
     
     $scope.$watch("typer.data.word", function() {
       if (typer.data.currentWord) {
