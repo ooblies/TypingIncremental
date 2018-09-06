@@ -201,7 +201,7 @@
               <div class="container d-flex justify-content-between">
                   <div>{{typer.getTotalWordsTyped() | number}} words typed</div>
                   <div>{{typer.getUnlockedWords().length | number}} / {{typer.data.words.length | number}} words unlocked</div>
-                  <div>{{typer.getTotalWordsMistyped()} | number}} typos</div>
+                  <div>{{typer.getTotalWordsMistyped() | number}} typos</div>
               </div>
             <div class="container d-flex justify-content-between">
                 <div>Most typed : {{typer.getMostTyped().word | uppercase}} - {{typer.getMostTyped().typeCount}} times</div>  
