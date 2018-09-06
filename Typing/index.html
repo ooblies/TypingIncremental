@@ -183,30 +183,36 @@
       </main>
       <footer class="text-white footer bg-dark text-center">
           <div class="navbar navbar-inverse navbar-dark bg-dark shadow-sm" style="padding: 0px 0px 0px 0px;">
-              <div class="container d-flex justify-content-between">
-                  <div>Time Played: {{typer.getHours() | number}}h {{typer.getMinutes()}}m</div>
-                  <div>{{typer.getWordsTyped() | number}} / {{typer.data.words.length | number}} words found</div>
-                  <div>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <div class="container fullWidth">
+                <div class="row fullWidth">
+                  <div class="col-4 leftStat">Time Played: {{typer.getHours() | number}}h {{typer.getMinutes()}}m</div>
+                  <div class="col-4 centerStat">{{typer.getWordsTyped() | number}} / {{typer.data.words.length | number}} words found</div>
+                  <div class="col-4 rightStat">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarFooter" aria-controls="navbarFooter" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                     </button>
                   </div>  
+                  </div>
               </div>
             </div>
 
           <div class="collapse bg-dark" id="navbarFooter">
               
               
-              <div class="container d-flex justify-content-between">
-                  <div>{{typer.getTotalWordsTyped() | number}} words typed</div>
-                  <div>{{typer.getUnlockedWords().length | number}} / {{typer.data.words.length | number}} words unlocked</div>
-                  <div>{{typer.getTotalWordsMistyped() | number}} typos</div>
+              <div class="container">
+                <div class="row">
+                    <div class="col-4 leftStat">{{typer.getTotalWordsTyped() | number}} words typed</div>
+                    <div class="col-4 centerStat">{{typer.getUnlockedWords().length | number}} / {{typer.data.words.length | number}} words unlocked</div>
+                    <div class="col-4 rightStat">{{typer.getTotalWordsMistyped() | number}} typos</div>
+                </div>
+                  
               </div>
-            <div class="container d-flex justify-content-between">
-                <div>Most typed : {{typer.getMostTyped().word | uppercase}} - {{typer.getMostTyped().typeCount}} times</div>  
-                <div>Longest word : {{typer.getLongestWord() | uppercase}}</div>
-                <div>Most mistyped : {{typer.getMostMistyped().word | uppercase}} - {{typer.getMostMistyped().mistypeCount}} times</div>                  
+            <div class="container">
+                <div class="row">
+                <div class="col-4 leftStat">Most typed : {{typer.getMostTyped().word | uppercase}} - {{typer.getMostTyped().typeCount}} times</div>  
+                <div class="col-4 centerStat">Longest word : {{typer.getLongestWord() | uppercase}}</div>
+                <div class="col-4 rightStat">Most mistyped : {{typer.getMostMistyped().word | uppercase}} - {{typer.getMostMistyped().mistypeCount}} times</div>  
+              </div>                
             </div>
         
           </div>

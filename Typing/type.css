@@ -18,6 +18,21 @@
   color: inherit; /* Inherits color property from its parent */
 }
 
+.fullWidth {
+  width:100% !important;
+}
+
+.leftStat {
+  text-align: left;
+}
+
+.centerStat {
+  text-align: center;
+}
+
+.rightStat {
+  text-align: right;
+}
 .newBadge {
     font-size: 15px;
     margin-top:15px;
@@ -94,7 +109,5 @@
       color: black;
     }
   }
-
-
 
 
