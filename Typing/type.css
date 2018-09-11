@@ -1,5 +1,5 @@
 .red {
-    color: red;
+    color: #dc3545;
 }
 .green {
     color: green;
@@ -14,8 +14,26 @@
   color: white; 
  }
 
+ .pointer {
+   cursor: pointer;
+ }
+.reset {
+  height:10px;
+  position: relative;
+}
  .deleteLink:hover{
   color: inherit; /* Inherits color property from its parent */
+}
+.floaterDiv {
+  color:green;
+  align-content: center;
+  font-size: 24px;
+  margin-top:-50px;
+}
+
+.floaterDiv>.floatingMoney {
+  position: absolute;
+  left:45%;
 }
 
 .fullWidth {
@@ -34,8 +52,15 @@
   text-align: right;
 }
 .newBadge {
+    margin-left: -15px;
+}
+.newCurrentBadge {
+    margin-left: -15px;
     font-size: 15px;
-    margin-top:15px;
+}
+.newLastBadge, .newNextBadge {
+    margin-left: -8px;
+    font-size: 8px;
 }
 
 .currentWord {
@@ -43,7 +68,23 @@
   font-weight: 600;
   text-align: center;
 }
+.nextWord, .lastWord {
+  font-size:32px;
+  font-weight: 600;
+  color: slategray;
+}
 
+.nextWord {
+  text-align: right;
+}
+.lastWord {
+  text-align: left;
+}
+
+.record {
+  font-weight: bold;
+  display: block
+}
 .footer {
     position: absolute;
     bottom: 0;
