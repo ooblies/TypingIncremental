@@ -17,10 +17,33 @@ angular.module('typerApp', [])
     typer.data = {};
     typer.data.currentVersion = 2; //changing this will delete older saves until you do a merging thing.
 
+    
+    typer.saveAllWords = function() {
+      typer.data.words.forEach(element => {
+        if (!typer.data.allWords) {
+          typer.data.allWords = [element];
+        } else {
+          var allWord = typer.data.allWords.filter(el => el.word == element.word);
+          if (allWord.length == 0) {
+            //insert
+            typer.data.allWords.push(element);
+          } else {
+            //update
+            allWord[0].typeCount += element.typeCount;
+            allWord[0].mistypeCount += element.mistypeCount;
+          }
+        }
+      });
+    };    
+
     typer.loadWords = function() {
+
+      typer.saveAllWords();
+
       $http.get("words/1000/" + typer.data.currentList + ".txt").then(function success(response) {      
         typer.data.wordData = response.data.split("\n"[0]);
   
+        typer.data.words = [];
         typer.data.wordData.forEach(function(element) {
           typer.data.words.push({
             word:element.trim(),
@@ -30,6 +53,7 @@ angular.module('typerApp', [])
           })
         });
 
+        typer.setMinumumUnlocks();
         typer.getNewWord();
   
       }, function error(response) {
@@ -56,6 +80,8 @@ angular.module('typerApp', [])
       save.words = typer.data.words;
       save.money = typer.data.money;
 
+      save.prestigePoints = typer.data.prestigePoints;
+
       save.unlockedLetters = typer.data.unlockedLetters;
       save.unlockedVowels = typer.data.unlockedVowels;
       save.unlockedConsonants = typer.data.unlockedConsonants;
@@ -66,6 +92,10 @@ angular.module('typerApp', [])
 
       save.highestStreak = typer.data.highestStreak;
       save.highestWPM = typer.data.highestWPM;
+
+      save.lists = typer.data.lists;
+      save.upgrades = typer.data.upgrades;
+      save.allWords = typer.data.allWords;
 
       save.timePlayed = (Date.now() - typer.data.timeLoaded) / 1000;
       
@@ -100,6 +130,11 @@ angular.module('typerApp', [])
     typer.getNewWord = function() { 
       var filtered = typer.getUnlockedWords()
 
+      if (filtered.length == 0) {
+        alert('someting broke');
+        return;        
+      }
+
       var filteredNew = filtered.filter(word => word.typeCount == 0);
       
       var luck = Math.floor(Math.random() * 101); //1-100
@@ -128,9 +163,11 @@ angular.module('typerApp', [])
       typer.data.currentList = 'gutenberg';
       typer.data.words = [];
       typer.data.money = 0;
-      typer.data.unlockedLetters = ["'"," ","A"];
       typer.data.unlockedVowels = 1;
       typer.data.unlockedConsonants = 0;
+      typer.data.unlockedLetters = [];
+
+      typer.data.prestigePoints = 0;
       
       typer.data.spacePurchased = 1;
       typer.data.luckPurchased = 0;
@@ -140,6 +177,125 @@ angular.module('typerApp', [])
       typer.data.timeLoaded = Date.now();
       typer.data.highestStreak = 0;
       typer.data.highestWPM = 0;
+
+      typer.data.lists = [{
+        name: "Gutenberg 1 - 1,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 1
+      },{
+        name: "Gutenberg 1,001 - 2,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 1
+      },{
+        name: "Gutenberg 2,001 - 3,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 1
+      },{
+        name: "Gutenberg 3,001 - 4,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 1
+      },{
+        name: "Gutenberg 4,001 - 5,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 2
+      },{
+        name: "Gutenberg 5,001 - 6,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 2
+      },{
+        name: "Gutenberg 6,001 - 7,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 2
+      },{
+        name: "Gutenberg 7,001 - 8,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 3
+      },{
+        name: "Gutenberg 8,001 - 9,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 3
+      },{
+        name: "Gutenberg 9,001 - 10,000",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 3
+      },{
+        name: "NSFW",
+        copmleted: 0,
+        lastTimeTaken: 0,
+        difficulty: 2
+      },{
+        name: "Geography",
+        copmleted: 0,
+        lastTimeTaken: 0,
+        difficulty: 5
+      }]
+
+      typer.data.upgrades = [{
+        //typo forgiveness
+        code: "typo",
+        name: "Typo Forgiveness",
+        description: "Allows one typo, per point, per word.",
+        baseCost: 5,
+        costMultiplier: 1.2,
+        purchased: 0,
+        getCurrentCost: function() {
+          return Math.floor(this.baseCost * (this.costMultiplier ^ this.purchased));
+        },
+      },{
+        //starting spaces
+        code: "space",
+        name: "Starting Space",
+        description: "Start each list with an additional space.",
+        baseCost: 1,
+        costMultiplier: 1.3,
+        purchased: 0,
+        getCurrentCost: function() {
+          return Math.floor(this.baseCost * (this.costMultiplier ^ this.purchased));
+        },  
+      },{
+        //starting vowels
+        code: "vowel",
+        name: "Starting Vowel",
+        description: "Start each new list with an additional, random, vowel.",
+        baseCost: 1,
+        costMultiplier: 1.4,
+        purchased: 0,
+        getCurrentCost: function() {
+          return Math.floor(this.baseCost * (this.costMultiplier ^ this.purchased));
+        },
+      },{
+        //starting consonants
+        code: "consonant",
+        name: "Starting Consonant",
+        description: "Start each new list with an additional, random, consonant.",
+        baseCost: 1,
+        costMultiplier: 1.2,
+        purchased: 0,
+        getCurrentCost: function() {
+          return Math.floor(this.baseCost * (this.costMultiplier ^ this.purchased));
+        },
+      },{
+        //cash +
+        code: "cash",
+        name: "Starting Cash",
+        description: "Grants additional money for each word typed.",
+        baseCost: 1,
+        costMultiplier: 1.1,
+        purchased: 0,
+        getCurrentCost: function() {
+          return Math.floor(this.baseCost * (this.costMultiplier ^ this.purchased));
+        },
+      }];
       
       typer.data.version = 2;
 
@@ -157,6 +313,7 @@ angular.module('typerApp', [])
     typer.data.streakBonus = 5;
     typer.data.newBonus = 2;
     
+    typer.data.prestigePointsOnCompletion = 5;
   
     typer.data.speedBonusMaxWPM = 100;
     typer.data.speedBonus = 5;
@@ -179,6 +336,13 @@ angular.module('typerApp', [])
 
     typer.floaterCount = 0;
     typer.recentWords = [];
+
+
+    typer.data.modalPage = 1;
+    typer.data.nextList = "";
+
+    
+    typer.data.baseUnlockedLetters = ["-","'"," "]
 
 
 
@@ -204,7 +368,51 @@ angular.module('typerApp', [])
     typer.getKeyboardCost = function() {
       return Math.floor(typer.data.keyboardBaseCost * Math.pow(typer.data.keyboardMultiplier,typer.data.keyboardPurchased));
     };
-    
+        
+    typer.getModalPageTitle = function() {
+      var name = "You Win!";
+      switch(typer.data.modalPage) {
+        case 1:
+          name = "You Win!"
+          break;
+        case 2:
+          name = "Upgrades!"
+          break;
+        case 3:
+          name = "Lists!"
+          break;
+        case 4:
+          name = "You Win!"
+          break;
+        default:
+          name = "You Win!"
+      }
+      return name;
+    }
+    typer.purchaseUpgrade = function(code){ 
+      var upgrade = typer.data.upgrades.filter(upg => upg.code == code);
+
+      var cost = upgrade.baseCost * (upgrade.costMultiplier * upgrade.purchased);
+
+      typer.data.prestigePoints -= cost;
+      upgrade.purchased++;
+    };
+
+    typer.getAllowedTypos = function() {
+      return typer.data.upgrades.filter(upg => upg.code == "typo")[0].purchased;
+    };
+    typer.getUpgradeCashBonus = function() {
+      return typer.data.upgrades.filter(upg => upg.code == "cash")[0].purchased;
+    };
+    typer.getUpgradeSpaces = function() {
+      return typer.data.upgrades.filter(upg => upg.code == "space")[0].purchased;
+    };
+    typer.getUpgradeVowels = function() {
+      return typer.data.upgrades.filter(upg => upg.code == "vowel")[0].purchased;
+    };
+    typer.getUpgradeConsonants = function() {
+      return typer.data.upgrades.filter(upg => upg.code == "consonant")[0].purchased;
+    };
 
     typer.deleteSave = function() {
       localStorage.removeItem('TypingSave');
@@ -258,16 +466,9 @@ angular.module('typerApp', [])
       return !typer.data.unlockedLetters.includes(letter);
     };
 
-    typer.win = function() {
-      typer.data.words.forEach(function(element) {
-        var typed = Math.floor(Math.random() * 101);
-        var mistyped = Math.floor(Math.random() * 101);
-        element.typeCount = typed;
-        element.mistypeCount = mistyped;
-      });
-    };
-
-    typer.winScreen = function() {
+    typer.completeList = function() {
+      typer.data.modalPage = 1;
+      typer.data.prestigePoints += 5;
       $('#winModal').modal('show');
     }
 
@@ -409,6 +610,74 @@ angular.module('typerApp', [])
       return recent.length;
     }
 
+    typer.almostFinish = function() {
+      typer.data.words.forEach(function(word) { 
+        if (word.word != "a") {
+          word.typeCount = 1;
+        }
+      });
+
+      typer.luckPurchased = 100;
+      
+      typer.data.unlockedLetters = ["-","'"," ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+      typer.data.unlockedVowels = 6;
+      typer.data.unlockedConsonants = 20;
+      typer.data.spacePurchased = 20;
+
+    }
+
+    typer.setMinumumUnlocks = function() {
+      //reset unlocked chars to minimum
+      var fewest = { word: "", num: 100 }
+      typer.data.words.forEach(function(word) {
+        var num = word.word.split('').filter(function(item, i, ar){ return ar.indexOf(item) === i; }).join('').length;
+        if (num < fewest.num || word.word.toUpperCase() == "A") {         
+          fewest.word = word.word;
+          fewest.num = num;
+        } else if (num == fewest.num && word.word.length < fewest.word.length) {            
+          fewest.word = word.word;
+          fewest.num = num;
+        }        
+      });
+      
+      typer.data.unlockedVowels = 0;
+      typer.data.unlockedConsonants = 0;
+      typer.data.unlockedLetters = typer.data.baseUnlockedLetters.slice(0);
+      fewest.word.split('').filter(function(item, i, ar){ return ar.indexOf(item) === i; }).forEach(element => {
+        element = element.toUpperCase();
+        typer.data.unlockedLetters.push(element)
+        if (["A","E","I","O","U","Y"].includes(element)) {
+          typer.data.unlockedVowels++;
+        }
+        if (["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Z"].includes(element)) {
+          typer.data.unlockedConsonants++;
+        }
+      });
+      typer.data.spacePurchased = fewest.word.length;
+    };
+
+
+    typer.startNewList = function() {      
+      //load new list
+      typer.data.nextWord = "";
+      typer.data.word = "";
+      typer.data.correct = false;
+      typer.data.incorrect = false;
+
+      typer.data.currentList = typer.data.nextList;
+      typer.data.nextList = "";
+      typer.loadWords(); //also reset unlocks to minimum viable + //populate counts from storage + //save words to all words
+      
+
+      //reset purchases
+      typer.data.keyboardPurchased = 1;
+
+      
+      //reset stats?
+    }
+
+
+
     typer.floatMoney = function(money) {
       //create newElement #moneyFloater + typer.floaterCount in floaterDiv
 
@@ -454,18 +723,24 @@ angular.module('typerApp', [])
           typer.data.money += money;    
           typer.data.currentWord.typeCount++;
           typer.data.correct = true;
-          typer.data.streak++;
-          if (typer.data.streak > typer.data.highestStreak) {
-            typer.data.highestStreak = typer.data.streak;
-          }
 
-          typer.recentWords.push({
-            word: typer.data.currentWord.word,
-            typedOn: Date.now()
-          });
+          if (typer.getUnlockedWords().length > 1) {
+            typer.data.streak++;
+
+            if (typer.data.streak > typer.data.highestStreak) {
+              typer.data.highestStreak = typer.data.streak;
+            }
+  
+            typer.recentWords.push({
+              word: typer.data.currentWord.word,
+              typedOn: Date.now()
+            });
+
+          }
+          
 
           if (typer.getWordsTyped() == typer.data.words.length) {
-            typer.winScreen();
+            typer.completeList();
           } else {
 
             //animate money

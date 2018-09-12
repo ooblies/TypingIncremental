@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="type.css"/>
     <link rel="stylesheet" href="scripts/animate.css"/>
 
+    <title>Typing Incremental</title>
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
   </head>
   <body ng-cloak>        
     <div ng-controller="TyperController as typer">
@@ -187,31 +190,56 @@
               </div>
             </div>
           </div>   
+
+          <button ng-click="typer.almostFinish()">Almost Finish</button>
         </section>
 
 
 
 
-        <div class="modal fade" id="winModal" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
+        <div class="modal fade" id="winModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="winModalLabel">You Win!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="winModalLabel">{{typer.getModalPageTitle()}}</h5>
               </div>
               <div class="modal-body">
-                Wow. I'm actually shocked that anyone played this enough to see this screen. Great job, I guess?
-                <br><br>
-                <b>Words Typed:</b> {{typer.getTotalWordsTyped()}} <br>
-                <b>Typos:</b> {{typer.getTotalWordsMistyped()}} <br>
-                <b>Most Typed Word:</b> {{typer.getMostTyped().word}} - {{typer.getMostTyped().typeCount}} <br>
-                <b>Most Typo'd Word:</b> {{typer.getMostMistyped().word}} - {{typer.getMostMistyped().mistypeCount}} <br>
-                <b>Time Spent:</b> {{typer.getHours()}}hours {{typer.getMinutes()}}minutes  <br>
+                <div ng-if="typer.data.modalPage == 1">
+                  You finished the {{typer.data.currentList}} list, and earned a prestige point!
+                  <br><br>
+                  Now It's time to to pick the next list and start again, but not before spending those prestige points on some permanent upgrades.
+                </div>
+                <div ng-if="typer.data.modalPage == 2">
+                  Upgrades~ 
+                  Prestige Points: {{typer.data.prestigePoints}}
+                  <div ng-repeat="upgrade in typer.data.upgrades">
+                    <div tabindex="0" data-toggle="tooltip" data-placement="top" title="{{upgrade.description}}">
+                      <button ng-disabled="typer.data.prestigePoints >= upgrade.getCurrentCost()" type="button" class="btn btn-secondary" ng-click="typer.purchaseUpgrade(upgrade.code)">{{upgrade.name}} - {{upgrade.getCurrentCost()}}pp</button>
+                    </div>
+                  </div>
+                </div>
+                <div ng-if="typer.data.modalPage == 3">
+                  Previous List: {{typer.data.currentList}}
+                  <br/><br/>
+                  
+                  <div ng-repeat="list in typer.data.lists">
+                    
+                      <button type="button" class="btn btn-secondary" ng-click="typer.data.nextList = list.name">Select</button> - 
+                      
+                      {{list.name}} - Completed {{list.completed}} times. - Difficulty: {{list.difficulty}}/5                    
+                  </div>
+                  
+                  <br/>
+                  Selected List: {{typer.data.nextList}}
+                </div>
+                <div ng-if="typer.data.modalPage == 4">
+                  Good Luck~
+                </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+                <button ng-if="typer.data.modalPage > 1" ng-click="typer.data.modalPage = typer.data.modalPage - 1;" type="button" class="btn btn-secondary">Back</button>  
+                <button ng-if="typer.data.modalPage < 4" ng-disabled="typer.data.modalPage == 3 && typer.data.nextList == ''" ng-click="typer.data.modalPage = typer.data.modalPage + 1;" type="button" class="btn btn-secondary">Next</button>  
+                <button ng-if="typer.data.modalPage == 4" ng-click="typer.startNewList();" type="button" class="btn btn-primary" data-dismiss="modal">Start</button>                
               </div>
             </div>
           </div>
