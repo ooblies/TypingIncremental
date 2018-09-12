@@ -180,61 +180,73 @@ angular.module('typerApp', [])
 
       typer.data.lists = [{
         name: "Gutenberg 1 - 1,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 1
       },{
         name: "Gutenberg 1,001 - 2,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 1
       },{
         name: "Gutenberg 2,001 - 3,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 1
       },{
         name: "Gutenberg 3,001 - 4,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 1
       },{
         name: "Gutenberg 4,001 - 5,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 2
       },{
         name: "Gutenberg 5,001 - 6,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 2
       },{
         name: "Gutenberg 6,001 - 7,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 2
       },{
         name: "Gutenberg 7,001 - 8,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 3
       },{
         name: "Gutenberg 8,001 - 9,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 3
       },{
         name: "Gutenberg 9,001 - 10,000",
+        description: "",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 3
       },{
         name: "NSFW",
+        description: "",
         copmleted: 0,
         lastTimeTaken: 0,
         difficulty: 2
       },{
         name: "Geography",
+        description: "",
         copmleted: 0,
         lastTimeTaken: 0,
         difficulty: 5
