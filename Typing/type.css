@@ -4,6 +4,39 @@
 .green {
     color: green;
 }
+.orange {
+    color: orange;
+    
+}
+
+.discord-link {
+  width:200px;
+}
+.no-margin-right {
+  margin-right:0px;
+}
+.no-margin-left {
+  margin-left:0px;
+}
+.dropdown-custom {
+  position: absolute; 
+  will-change: transform; 
+  top: 0px; 
+  left: 0px; 
+  transform: translate3d(0px, 38px, 0px);
+}
+.no-padding {
+  padding: 0px 0px 0px 0px;
+}
+.card-deck .card {
+  margin-bottom: 15px;
+}
+.list-points {
+  align-self: flex-end;
+}
+.modal-card {
+  margin-bottom: 15px;
+}
  .grey {
      background: #e9ecef;
  }
