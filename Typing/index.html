@@ -79,8 +79,10 @@
                       </div>
                       <div class="currentWord col-6  text-center">                        
                         <!--<div ng-if="typer.data.currentList.code == 'color'"></div>-->
-                        <span style="border-bottom:solid 3px;" ng-style="{'border-color':typer.data.currentWord.color}">{{typer.data.currentWord.word | uppercase}}</span>
-                        <sup><sup><span ng-if="typer.data.currentWord.typeCount == 0" class="newCurrentBadge badge badge-pill badge-danger">NEW</span></sup></sup>
+                        <div>
+                          <span style="border-bottom:solid 3px;" ng-style="{'border-color':typer.data.currentWord.color}">{{typer.data.currentWord.word | uppercase}}</span>
+                          <sup><sup><span ng-if="typer.data.currentWord.typeCount == 0" class="newCurrentBadge badge badge-pill badge-danger">NEW</span></sup></sup>
+                        </div>
                       </div>
                       <div class="nextWord col-3">
                         {{typer.data.nextWord.word | uppercase}}

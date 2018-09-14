@@ -139,6 +139,19 @@ html {
   font-weight: 600;
   text-align: center;
 }
+
+.currentWord div {
+  display: table;
+  margin: 0 auto;
+  position: relative;
+}
+
+.currentWord div sup {
+  position: absolute;
+  right: -29px;
+  top: 13px;
+}
+
 .nextWord, .lastWord {
   font-size:32px;
   font-weight: 600;
