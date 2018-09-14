@@ -400,15 +400,15 @@
 
               <div class="row stat-row">
                 <div class="col-4 leftStat">Highest WPM : {{typer.data.highestWPM}}
-                  <div ng-click="typer.resetWPM()" class="d-inline-block pointer reset" tabindex="0" data-toggle="tooltip" data-placement="top" title="Reset max WPM to 0.">
+                  <span ng-click="typer.resetWPM()" class="pointer reset" tabindex="0" data-toggle="tooltip" data-placement="top" title="Reset max WPM to 0.">
                     <i class="fas fa-times-circle red fa-xs"></i>
-                  </div>  
+                  </span>  
                 </div>                      
                 <div class="col-4 centerStat"></div>
                 <div class="col-4 rightStat">Highest Streak : {{typer.data.highestStreak}} 
-                  <div ng-click="typer.resetStreak()" class="d-inline-block pointer reset" tabindex="0" data-toggle="tooltip" data-placement="top" title="Reset max streak to 0.">
+                  <span ng-click="typer.resetStreak()" class="pointer reset" tabindex="0" data-toggle="tooltip" data-placement="top" title="Reset max streak to 0.">
                     <i class="fas fa-times-circle red fa-xs"></i>
-                  </div>  
+                  </span>  
                 </div>  
               </div>   
               
