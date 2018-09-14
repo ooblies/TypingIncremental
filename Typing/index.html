@@ -79,7 +79,7 @@
                       </div>
                       <div class="currentWord col-6  text-center">                        
                         <!--<div ng-if="typer.data.currentList.code == 'color'"></div>-->
-                        <span style="border-bottom:solid 3px;" ng-style="{'border-color':typer.data.currentWord.color}">{{typer.data.currentWord.word | uppercase}}</span>
+                        <span class="word" ng-class="{'word-border': typer.data.currentList.code == 'color' }" ng-style="{'border-color':typer.data.currentWord.color}">{{typer.data.currentWord.word | uppercase}}</span>
                         <sup><sup><span ng-if="typer.data.currentWord.typeCount == 0" class="newCurrentBadge badge badge-pill badge-danger">NEW</span></sup></sup>
                       </div>
                       <div class="nextWord col-3">
@@ -90,7 +90,7 @@
                   <div class="row">
                     <div class="col-3">
                     </div>
-                    <div class="col-6 text-center">
+                    <div class="col-6 text-center seen-text">
                         Times Seen: {{typer.data.currentWord.typeCount + typer.data.currentWord.mistypeCount}}
                     </div>
                     <div class="col-3">
@@ -112,13 +112,13 @@
             <br>
             <br>
             <div class="container">
-              <div class="row">
+              <div class="row multiplier-row">
                 <div class="col-4">
                   Speed: {{typer.getWPM()}} WPM
                   <br/>
                   Speed Multiplier: {{typer.getSpeedBonus() | number : 1}}x
                   <br/>
-                  <span ng-if="typer.getWPM() == typer.data.highestWPM && typer.data.highestWPM > 0" class="red record animated pulse infinite">New Record!</span>
+                  <span ng-show="typer.getWPM() == typer.data.highestWPM && typer.data.highestWPM > 0" class="red record animated pulse infinite">New Record!</span>
                 </div>
                 <div class="col-4">
                   <h2>{{typer.data.money | currency:undefined:0}}</h2>
@@ -131,7 +131,7 @@
                   <br/>
                   Streak Multiplier: {{typer.getStreakBonus() | number : 1}}x
                   <br/>
-                  <span ng-if="typer.data.streak == typer.data.highestStreak && typer.data.highestStreak > 0" class="red record animated pulse infinite">New Record!</span>
+                  <span ng-show="typer.data.streak == typer.data.highestStreak && typer.data.highestStreak > 0" class="red record animated pulse infinite">New Record!</span>
                 </div>
               </div>
             </div>

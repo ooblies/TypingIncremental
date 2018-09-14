@@ -1,3 +1,10 @@
+
+window.addEventListener('keydown', function(e) {
+  if(e.keyCode == 32 && e.target == document.body) {
+    e.preventDefault();
+  }
+});
+
 $(function() {
   // Focus on load
   $('.typeHere').focus();
@@ -386,15 +393,6 @@ angular.module('typerApp', [])
         pointsOnCompletion: 5,
         unlocked: false,
       },{
-        name: "NSFW",
-        code: "nsfw",
-        description: "This list is DEFINITELY not safe for work. No prudes allowed.",
-        completed: 0,
-        lastTimeTaken: 0,
-        difficulty: 2,
-        pointsOnCompletion: 6,
-        unlocked: true,
-      },{
         name: "World Geography",
         code: "geography",
         description: "Do words like Kyrgyzstan or N'Djamena scare you off? Not for the feint of heart.",
@@ -753,7 +751,7 @@ angular.module('typerApp', [])
     typer.getLifetimeWordsSeen = function() {
       var seen = 0;
 
-      var unlockedWords = typer.getUnlockedWords().map(a => a.word);;
+      var unlockedWords = typer.getUnlockedWords().filter(word => word.typeCount + word.mistypeCount > 0).map(a => a.word);
 
       seen += unlockedWords.length;
 
@@ -1138,7 +1136,7 @@ angular.module('typerApp', [])
             }, 100);
           }
         };
-
+        
         if (!typer.data.currentWord.word.toUpperCase().startsWith(typer.data.word.toUpperCase())) {
           if (typer.checkWordForDifferencesSoFar() > typer.getAllowedTypos()) {
             typer.data.incorrect = true;
@@ -1170,8 +1168,12 @@ angular.module('typerApp', [])
 
     $(document).keypress(function(e){
       if (!typer.data.correct && !typer.data.incorrect && e.key.toUpperCase() != "ENTER") {
-        typer.data.word += e.key.toUpperCase();
-        $scope.$apply();
+        if (typer.data.word.length == 0 && e.key.toUpperCase() == " ") {
+          //if space is the first thing pressed, don't count as error.
+        } else {
+          typer.data.word += e.key.toUpperCase();
+          $scope.$apply();
+        }        
       }
     });
       
