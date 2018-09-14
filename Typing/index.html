@@ -77,19 +77,29 @@
                         {{typer.data.lastWord.word | uppercase}}
                         <sup><sup><span ng-if="typer.data.lastWord.typeCount == 0" class="newLastBadge badge badge-pill badge-danger">NEW</span></sup></sup>
                       </div>
-                      <div class="currentWord col-6">{{typer.data.currentWord.word | uppercase}}
+                      <div class="currentWord col-6  text-center">                        
+                        <!--<div ng-if="typer.data.currentList.code == 'color'"></div>-->
+                        <span style="border-bottom:solid 3px;" ng-style="{'border-color':typer.data.currentWord.color}">{{typer.data.currentWord.word | uppercase}}</span>
                         <sup><sup><span ng-if="typer.data.currentWord.typeCount == 0" class="newCurrentBadge badge badge-pill badge-danger">NEW</span></sup></sup>
                       </div>
                       <div class="nextWord col-3">
                         {{typer.data.nextWord.word | uppercase}}
-                        <sup><sup><span ng-if="typer.data.nextWord.typeCount == 0" class="newNextBadge badge badge-pill badge-danger">NEW</span></sup></sup>
+                        <sup ng-if="typer.data.nextWord.typeCount == 0"><sup><span class="newNextBadge badge badge-pill badge-danger">NEW</span></sup></sup>
                       </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-6 text-center">
+                        Times Seen: {{typer.data.currentWord.typeCount + typer.data.currentWord.mistypeCount}}
+                    </div>
+                    <div class="col-3">
+                    </div>
                   </div>
                 </div>
               </div>
-              <p>
-                Times Seen: {{typer.data.currentWord.typeCount + typer.data.currentWord.mistypeCount}}
-              </p>
+              
+                
               <hr>
             </div>
 
@@ -188,10 +198,10 @@
             </div>
           </div>   
 
-          <!--
+          
             <br/><br/>
             <button ng-click="typer.almostFinish()" class="btn btn-danger">Finish</button>
-          -->
+          
         </section>
 
 
@@ -324,7 +334,7 @@
                               Difficulty {{list.difficulty}}/5
                           </div>
                           <div class="col-3 text-right">
-                              Completed {{list.completed}} times
+                              Completed {{list.completed}} time<span ng-if="list.completed != 1">s</span><span class="green" ng-if="list.completed > 0"><br>+{{list.completed * 10}}% money earned</span>
                           </div>
                         </div>
                       </div>
@@ -376,7 +386,7 @@
               <div class="container fullWidth">
                 <div class="row fullWidth">
                   <div class="col-4 leftStat">Time Played: {{typer.getTimePlayed()}}</div>
-                  <div class="col-4 centerStat">{{typer.getWordsTyped() | number}} / {{typer.data.words.length | number}} words found</div>
+                  <div class="col-4 centerStat">{{typer.getWordsTyped() | number}} / {{typer.data.words.length | number}} words typed</div>
                   <div class="col-4 rightStat">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarFooter" aria-controls="navbarFooter" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
@@ -388,45 +398,8 @@
 
           <div class="collapse bg-dark" id="navbarFooter">                            
             <div class="container">
-              
-              <div class="row">
-                <div class="col-12 text-center">
-                  Current List Stats
-                </div>
-              </div>  
 
-              <div class="row">
-                  <div class="col-4 leftStat">{{typer.getTotalWordsTyped() | number}} words typed</div>
-                  <div class="col-4 centerStat">{{typer.getUnlockedWords().length | number}} / {{typer.data.words.length | number}} words unlocked</div>
-                  <div class="col-4 rightStat">{{typer.getTotalWordsMistyped() | number}} typos</div>
-              </div>
-
-              <div class="row">
-                <div class="col-4 leftStat">Most typed : {{typer.getMostTyped().word | uppercase}} - {{typer.getMostTyped().typeCount}} times</div>  
-                <div class="col-4 centerStat">Longest word : {{typer.getLongestWord() | uppercase}}</div>
-                <div class="col-4 rightStat">Most mistyped : {{typer.getMostMistyped().word | uppercase}} - {{typer.getMostMistyped().mistypeCount}} times</div>  
-              </div>     
-
-              
-              <div class="row">
-                <div class="col-12 text-center">
-                  Lifetime Stats
-                </div>
-              </div>  
-
-              <div class="row">
-                  <div class="col-4 leftStat">{{typer.getTotalWordsTyped() | number}} words typed</div>
-                  <div class="col-4 centerStat">{{typer.getUnlockedWords().length | number}} words seen</div>
-                  <div class="col-4 rightStat">{{typer.getTotalWordsMistyped() | number}} typos</div>
-              </div>
-
-              <div class="row">
-                <div class="col-4 leftStat">Most typed : {{typer.getMostTyped().word | uppercase}} - {{typer.getMostTyped().typeCount}} times</div>  
-                <div class="col-4 centerStat">Longest word : {{typer.getLongestWord() | uppercase}}</div>
-                <div class="col-4 rightStat">Most mistyped : {{typer.getMostMistyped().word | uppercase}} - {{typer.getMostMistyped().mistypeCount}} times</div>  
-              </div>  
-
-              <div class="row">
+              <div class="row stat-row">
                 <div class="col-4 leftStat">Highest WPM : {{typer.data.highestWPM}}
                   <div ng-click="typer.resetWPM()" class="d-inline-block pointer reset" tabindex="0" data-toggle="tooltip" data-placement="top" title="Reset max WPM to 0.">
                     <i class="fas fa-times-circle red fa-xs"></i>
@@ -439,7 +412,47 @@
                   </div>  
                 </div>  
               </div>   
+              
+              <div class="card text-white bg-dark stat-card">
+                <h5 class="card-title">Current List Stats</h5>
+                <div class="card-text">
 
+                  <div class="row stat-row">
+                      <div class="col-4 leftStat">{{typer.getTotalWordsTyped() | number}} total words typed</div>
+                      <div class="col-4 centerStat">{{typer.getUnlockedWords().length | number}} / {{typer.data.words.length | number}} words unlocked</div>
+                      <div class="col-4 rightStat">{{typer.getTotalWordsMistyped() | number}} total typos</div>
+                  </div>
+
+                  <div class="row stat-row">
+                    <div class="col-4 leftStat">Most typed : {{typer.getMostTyped().word | uppercase}} - {{typer.getMostTyped().typeCount}} times</div>  
+                    <div class="col-4 centerStat">Longest word : {{typer.getLongestWord() | uppercase}}</div>
+                    <div class="col-4 rightStat">Most mistyped : {{typer.getMostMistyped().word | uppercase}} - {{typer.getMostMistyped().mistypeCount}} times</div>  
+                  </div>     
+                </div>
+              </div>  
+
+              
+              <div class="card text-white bg-dark stat-card" ng-if="typer.data.listsCompleted > 0">
+                <h5 class="card-title">Lifetime Stats</h5>
+                <div class="card-text">
+                  <div class="row stat-row">
+                    <div class="col-4 leftStat">{{typer.getLifetimeWordsTyped() | number}} words typed</div>
+                    <div class="col-4 centerStat">{{typer.getLifetimeWordsSeen() | number}} unique words seen</div>
+                    <div class="col-4 rightStat">{{typer.getLifetimeWordsMistyped() | number}} typos</div>
+                  </div>
+                  
+                  <div class="row stat-row">
+                    <div class="col-4 leftStat">Most typed : {{typer.getLifetimeMostTyped().word | uppercase}} - {{typer.getLifetimeMostTyped().typeCount}} times</div>  
+                    <div class="col-4 centerStat">Longest word : {{typer.getLifetimeLongestWord() | uppercase}}</div>
+                    <div class="col-4 rightStat">Most mistyped : {{typer.getLifetimeMostMistyped().word | uppercase}} - {{typer.getLifetimeMostMistyped().mistypeCount}} times</div>  
+                  </div>  
+                </div>  
+              </div>
+              
+
+
+              <div class="bottom-spacer">
+              </div>
             </div>
           </div>
       </footer>

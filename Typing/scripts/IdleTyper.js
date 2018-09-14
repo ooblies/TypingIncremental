@@ -11,11 +11,12 @@ $(function() {
 
 angular.module('typerApp', [])
   .controller('TyperController', function($http, $scope, $timeout, $interval) {
-    var typer = this;   
+    var typer = this;  
+    var currentVersion = 2; //changing this will delete older saves until you do a merging thing.
     
 
     typer.data = {};
-    typer.data.currentVersion = 2; //changing this will delete older saves until you do a merging thing.
+    
 
     
     typer.shuffleArray = function (array) {
@@ -131,17 +132,22 @@ angular.module('typerApp', [])
   
         typer.data.words = [];
         typer.data.wordData.forEach(function(element) {
-          typer.data.words.push({
-            word:element.trim(),
-            length:element.trim().length,
-            typeCount:0,
-            mistypeCount:0,
-          })
+          if (element.length > 0) {
+            typer.data.words.push({
+              word:element.split(",")[0].trim(),
+              length:element.split(",")[0].trim().length,
+              typeCount:0,
+              mistypeCount:0,
+              color: (typer.data.currentList.code == "color" ? element.split(",")[1] : null)
+            });
+          }        
         });
 
         typer.setMinumumUnlocks();
         typer.applyUpgrades();
-        typer.getNewWord();        
+        typer.getNewWord();    
+
+        typer.save();    
   
       }, function error(response) {
         debugger;
@@ -163,7 +169,19 @@ angular.module('typerApp', [])
         typer.showModal();
       }
 
-      //Updates go here.
+      if (typer.data.version < currentVersion) {
+        //Updates go here.
+        if (typer.data.version < 2.1) {
+          //2.1 updates go here
+          //also need to be added to new game section
+        }
+        if (typer.data.version < 2.2) {
+          //2.2 updates go here
+          //also need to be added to new game section
+        }
+
+        typer.save();
+      }            
     };
 
     typer.save = function() {
@@ -191,10 +209,11 @@ angular.module('typerApp', [])
       save.allWords = typer.data.allWords;
 
       save.listCompleted = typer.data.listCompleted;
+      save.listsCompleted = typer.data.listsCompleted;
 
       save.timePlayed = (Date.now() - typer.data.timeLoaded) / 1000;
       
-      save.version = 2;
+      save.version = currentVersion;
 
       localStorage.setItem('TypingSave', JSON.stringify(save));
     }
@@ -258,7 +277,7 @@ angular.module('typerApp', [])
       typer.load();
     } 
 
-    if (!localStorage.TypingSave || typer.data.version < typer.data.currentVersion) {
+    if (!localStorage.TypingSave || !typer.data.version) {
       typer.data.words = [];
       typer.data.money = 0;
       typer.data.unlockedVowels = 1;
@@ -279,7 +298,7 @@ angular.module('typerApp', [])
       typer.data.lists = [{
         name: "Gutenberg 1 - 1,000",
         code: "gutenberg1", //filename
-        description: "The 1,000 most frequent words in the 57,000 free eBook library of Project Gutenberg.",
+        description: "The 1,000 most frequent words in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 1,
@@ -288,7 +307,7 @@ angular.module('typerApp', [])
       },{
         name: "Gutenberg 1,001 - 2,000",
         code: "gutenberg2",
-        description: "Words 1,001 - 2,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg.",
+        description: "Words 1,001 - 2,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 1,
@@ -297,7 +316,7 @@ angular.module('typerApp', [])
       },{
         name: "Gutenberg 2,001 - 3,000",
         code: "gutenberg3",
-        description: "Words 2,001 - 3,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg.",
+        description: "Words 2,001 - 3,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 1,
@@ -306,7 +325,7 @@ angular.module('typerApp', [])
       },{
         name: "Gutenberg 3,001 - 4,000",
         code: "gutenberg4",
-        description: "Words 3,001 - 4,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg.",
+        description: "Words 3,001 - 4,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 1,
@@ -315,7 +334,7 @@ angular.module('typerApp', [])
       },{
         name: "Gutenberg 4,001 - 5,000",
         code: "gutenberg5",
-        description: "Words 4,001 - 5,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg.",
+        description: "Words 4,001 - 5,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 2,
@@ -324,7 +343,7 @@ angular.module('typerApp', [])
       },{
         name: "Gutenberg 5,001 - 6,000",
         code: "gutenberg6",
-        description: "Words 5,001 - 6,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg.",
+        description: "Words 5,001 - 6,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 2,
@@ -333,7 +352,7 @@ angular.module('typerApp', [])
       },{
         name: "Gutenberg 6,001 - 7,000",
         code: "gutenberg7",
-        description: "Words 6,001 - 7,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg.",
+        description: "Words 6,001 - 7,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 2,
@@ -342,7 +361,7 @@ angular.module('typerApp', [])
       },{
         name: "Gutenberg 7,001 - 8,000",
         code: "gutenberg8",
-        description: "Words 7,001 - 8,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg.",
+        description: "Words 7,001 - 8,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 3,
@@ -351,7 +370,7 @@ angular.module('typerApp', [])
       },{
         name: "Gutenberg 8,001 - 9,000",
         code: "gutenberg9",
-        description: "Words 8,001 - 9,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg.",
+        description: "Words 8,001 - 9,000 of the most frequent in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.",
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 3,
@@ -373,7 +392,7 @@ angular.module('typerApp', [])
         completed: 0,
         lastTimeTaken: 0,
         difficulty: 2,
-        pointsOnCompletion: 7,
+        pointsOnCompletion: 6,
         unlocked: true,
       },{
         name: "World Geography",
@@ -383,6 +402,15 @@ angular.module('typerApp', [])
         lastTimeTaken: 0,
         difficulty: 5,
         pointsOnCompletion: 10,
+        unlocked: true,
+      },{
+        name: "Colors",
+        code: "color",
+        description: "Who knew there were over 1,000 different named colors??",
+        completed: 0,
+        lastTimeTaken: 0,
+        difficulty: 3,
+        pointsOnCompletion: 8,
         unlocked: true,
       }]
 
@@ -445,6 +473,7 @@ angular.module('typerApp', [])
       
       typer.data.currentList = typer.data.lists[0];
       typer.data.listCompleted = false;
+      typer.data.listsCompleted = 0;
       
       typer.data.version = 2;
 
@@ -654,7 +683,8 @@ angular.module('typerApp', [])
       typer.data.modalPage = 1;
       typer.data.prestigePoints += typer.data.currentList.pointsOnCompletion;
       typer.data.listCompleted = true;
-      typer.data.currentList.completed++;
+      typer.data.listsCompleted++;
+      typer.getListByCode(typer.data.currentList.code).completed++;
       typer.unlockNextList();
       typer.save();
       typer.showModal();
@@ -698,6 +728,45 @@ angular.module('typerApp', [])
       }, 0);
     };
 
+    typer.getLifetimeWordsTyped = function () {
+      var current = typer.sum(typer.data.words, "typeCount");
+      var previous = 0;
+      
+      if (typer.data.allWords) {
+        previous = typer.sum(typer.data.allWords, "typeCount");
+      }
+      
+      return current + previous;
+    };
+
+    typer.getLifetimeWordsMistyped = function() {
+      var current = typer.sum(typer.data.words, "mistypeCount");
+      var previous = 0;
+
+      if (typer.data.allWords) {
+        previous = typer.sum(typer.data.allWords, "mistypeCount");
+      }
+
+      return current + previous;
+    };
+    
+    typer.getLifetimeWordsSeen = function() {
+      var seen = 0;
+
+      var unlockedWords = typer.getUnlockedWords().map(a => a.word);;
+
+      seen += unlockedWords.length;
+
+      if (typer.data.allWords) {
+        typer.data.allWords.forEach(word => {
+          if (!unlockedWords.includes(word.word))
+            seen++;
+        });  
+      }
+      
+      return seen;
+    };
+
     typer.getTotalWordsTyped = function() {
       return typer.sum(typer.data.words, "typeCount");
     };
@@ -717,6 +786,25 @@ angular.module('typerApp', [])
       return most;
     };
 
+    typer.getLifetimeMostTyped = function() {
+      var most = { typeCount: 0};
+      typer.data.words.forEach(function (element) {
+        if (element.typeCount > most.typeCount) {
+          most = element;
+        }
+      });
+
+      if (typer.data.allWords) {
+        typer.data.allWords.forEach(function (element) {
+          if (element.typeCount > most.typeCount) {
+            most = element;
+          }
+        });
+      }
+      
+      return most;
+    };
+
     typer.getMostMistyped = function() {
       var most = { mistypeCount: 0};
       typer.data.words.forEach(function (element) {
@@ -727,6 +815,48 @@ angular.module('typerApp', [])
       
       return most;
     };
+
+    typer.getLifetimeMostMistyped = function() {
+      var most = { mistypeCount: 0};
+      typer.data.words.forEach(function (element) {
+        if (element.mistypeCount > most.mistypeCount) {
+          most = element;
+        }
+      });
+      
+      if (typer.data.allWords) {
+        typer.data.allWords.forEach(function (element) {
+          if (element.mistypeCount > most.mistypeCount) {
+            most = element;
+          }
+        });
+      }
+
+      return most;
+    };
+
+
+    typer.getLifetimeLongestWord = function() {
+      var typedWords = typer.data.words.filter(word => word.typeCount > 0);
+
+      var longWord = "A";
+
+      typedWords.forEach(function(element) {
+        if (element.word.length > longWord.length) {
+          longWord = element.word;
+        }
+      });
+
+      if (typer.data.allWords) {        
+        typer.data.allWords.forEach(function(element) {
+          if (element.word.length > longWord.length) {
+            longWord = element.word;
+          }
+        });
+      }
+
+      return longWord;
+    }
     
     typer.getLongestWord = function() {
       var typedWords = typer.data.words.filter(word => word.typeCount > 0);

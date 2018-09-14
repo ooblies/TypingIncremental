@@ -8,15 +8,46 @@
     color: orange;
     
 }
-
+.bottom-spacer {
+  padding-bottom:1px;
+}
+.stat-card .card-title {
+  padding-top:10px;
+}
+.stat-card {
+  margin-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-color:dimgray;
+}
+.color-display {
+  height:50px;
+  width:50px;
+}
+.stat-card  h5 {
+  border-bottom: 1px solid dimgrey;
+  padding-bottom:10px;
+}
+.stat-card .card-text {
+  line-height: 1.5;
+}
+.stat-row {
+  height:40px;
+  padding-right:10px;
+  padding-left:10px;
+  margin-bottom:15px;
+}
+.bottom-stat-row {
+  padding-bottom: 15px;
+}
 .discord-link {
   width:200px;
 }
 .no-margin-right {
-  margin-right:0px;
+  margin-right:0px !important;
 }
 .no-margin-left {
-  margin-left:0px;
+  margin-left:0px !important;
 }
 .dropdown-custom {
   position: absolute; 
