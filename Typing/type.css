@@ -14,6 +14,10 @@ html {
     color: orange;
     
 }
+.bottom-stat-padding{ 
+  padding-right: 30px;
+  padding-left:30px;
+}
 .bottom-spacer {
   padding-bottom:1px;
 }
@@ -48,8 +52,6 @@ html {
 }
 .stat-row {
   height:40px;
-  padding-right:10px;
-  padding-left:10px;
   margin-bottom:15px;
 }
 .bottom-stat-row {

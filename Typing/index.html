@@ -42,8 +42,8 @@
                 <button type="button" class="btn btn-danger" ng-click="typer.showDeleteModal();" href="#" class="deleteLink">Delete Save</button>
               </div>
               <div class="col-sm-4 offset-md-1 py-4">
-                <h4 class="text-white">Join the chat!</h4>
-                <ul class="list-unstyled">
+                <h4 class="text-white text-right">Join the chat!</h4>
+                <ul class="list-unstyled text-right">
                   <li>
                       <a href="https://discord.gg/xGTzgmh">
                       <img src="images/Discord-Logo+Wordmark-Color.svg" alt="Join the Discord!" class="discord-link">
@@ -142,6 +142,7 @@
                   Buy Vowel - ${{typer.getVowelCost() | number}}
                 </button>
                 <div class="dropdown-menu dropdown-custom" x-placement="bottom-start">
+                    <a class="dropdown-item" href="#" ng-if="typer.displayLetter('A');" ng-click="typer.purchaseVowel('A');">Buy "A"</a>
                     <a class="dropdown-item" href="#" ng-if="typer.displayLetter('E');" ng-click="typer.purchaseVowel('E');">Buy "E"</a>
                     <a class="dropdown-item" href="#" ng-if="typer.displayLetter('I');" ng-click="typer.purchaseVowel('I');">Buy "I"</a>
                     <a class="dropdown-item" href="#" ng-if="typer.displayLetter('O');" ng-click="typer.purchaseVowel('O');">Buy "O"</a>
@@ -173,7 +174,7 @@
                     <a class="dropdown-item" href="#" ng-if="typer.displayLetter('V');" ng-click="typer.purchaseConsonant('V');">Buy "V"</a>
                     <a class="dropdown-item" href="#" ng-if="typer.displayLetter('W');" ng-click="typer.purchaseConsonant('W');">Buy "W"</a>
                     <a class="dropdown-item" href="#" ng-if="typer.displayLetter('X');" ng-click="typer.purchaseConsonant('X');">Buy "X"</a>
-                    <a class="dropdown-item" href="#" ng-if="typer.displayLetter('Z');" ng-click="typer.purchaseConsonant('Z ');">Buy "Z"</a>
+                    <a class="dropdown-item" href="#" ng-if="typer.displayLetter('Z');" ng-click="typer.purchaseConsonant('Z');">Buy "Z"</a>
                 </div>
               </div>
               <br><br>
@@ -196,10 +197,6 @@
               </div>
             </div>
           </div>   
-
-          
-            <br/><br/>
-            <button ng-click="typer.almostFinish()" class="btn btn-danger">Finish</button>
           
         </section>
 
@@ -363,7 +360,11 @@
                 -->
                 </div>
                 <div ng-show="typer.data.modalPage == 4">
-                  Good Luck~
+                  You've completed <b>{{typer.data.listsCompleted}}</b> lists so far. How far will you go?
+                  <br><br>
+                  If you have any comments/suggestion/list ideas/bugs/anything, click the Discord link in the top menu to join the community. I'll be way more active there than Reddit.
+                  <br><br>
+                  Thanks for playing, and <b>good luck!</b>
                 </div>
               </div>
               <div class="modal-footer row no-margin-right no-margin-left">                                          
@@ -372,7 +373,7 @@
                 </div>
                 <div class="col-6 text-right no-margin-left">
                   <button ng-if="typer.data.modalPage > 1" ng-click="typer.modalPageBack();" type="button" class="btn btn-secondary">Back</button>  
-                  <button ng-if="typer.data.modalPage < 4" ng-disabled="typer.data.modalPage == 3 && typer.data.nextList == {}" ng-click="typer.modalPageNext();" type="button" class="btn btn-primary">Next</button>  
+                  <button ng-if="typer.data.modalPage < 4" ng-disabled="typer.data.modalPage == 3 && typer.data.nextList.code == undefined" ng-click="typer.modalPageNext();" type="button" class="btn btn-primary">Next</button>  
                   <button ng-if="typer.data.modalPage == 4" ng-click="typer.startNewList();" type="button" class="btn btn-primary" data-dismiss="modal">Start</button>                    
                 </div>              
               </div>
@@ -383,7 +384,7 @@
       <footer class="text-white footer bg-dark text-center">
           <div class="navbar navbar-inverse navbar-dark bg-dark shadow-sm no-padding" >
               <div class="container fullWidth">
-                <div class="row fullWidth">
+                <div class="row fullWidth no-margin-right no-margin-left">
                   <div class="col-4 leftStat">Time Played: {{typer.getTimePlayed()}}</div>
                   <div class="col-4 centerStat">{{typer.getWordsTyped() | number}} / {{typer.data.words.length | number}} words typed</div>
                   <div class="col-4 rightStat">
@@ -396,9 +397,9 @@
             </div>
 
           <div class="collapse bg-dark" id="navbarFooter">                            
-            <div class="container">
+            <div class="container bottom-stat-padding">
 
-              <div class="row stat-row">
+              <div class="row stat-row ">
                 <div class="col-4 leftStat">Highest WPM : {{typer.data.highestWPM}}
                   <span ng-click="typer.resetWPM()" class="pointer reset" tabindex="0" data-toggle="tooltip" data-placement="top" title="Reset max WPM to 0.">
                     <i class="fas fa-times-circle red fa-xs"></i>

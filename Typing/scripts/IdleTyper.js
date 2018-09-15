@@ -108,7 +108,7 @@ angular.module('typerApp', [])
         //get random, locked vowel
         var vowel = randomVowels[i];
         //add to unlocked
-        typer.data.unlockedLetters.push(vowel);
+        typer.data.unlockedLetters.push(vowel.trim());
         //increment unlockedVowels
         typer.data.unlockedVowels++;
         //handle pricing somehow TODO
@@ -122,7 +122,7 @@ angular.module('typerApp', [])
         //get random, locked consonant
         var consonant = randomConsonants[i];
         //add to unlocked
-        typer.data.unlockedLetters.push(consonant);
+        typer.data.unlockedLetters.push(consonant.trim());
         //increment unlockedConsonants
         typer.data.unlockedConsonants++;
         //handle pricing somehow TODO
@@ -165,17 +165,10 @@ angular.module('typerApp', [])
       var parsed = JSON.parse(data);      
       typer.data = parsed;
       typer.data.timeLoaded = Date.now();
-
-      if (typer.data.words.length == 0) {
-        typer.loadWords();
-      } else {
-        typer.getNewWord();
-      }      
-
-      if (typer.data.listCompleted) {         
-        typer.showModal();
+      
+      if (!typer.data.version || typer.data.version < 2) {
+        return;
       }
-
       if (typer.data.version < currentVersion) {
         //Updates go here.
         if (typer.data.version < 2.1) {
@@ -188,7 +181,19 @@ angular.module('typerApp', [])
         }
 
         typer.save();
-      }            
+      }  
+      
+
+      if (typer.data.words.length == 0) {
+        typer.loadWords();
+      } else {
+        typer.getNewWord();
+      }      
+
+      if (typer.data.listCompleted) {         
+        typer.showModal();
+      }
+          
     };
 
     typer.save = function() {
@@ -218,7 +223,9 @@ angular.module('typerApp', [])
       save.listCompleted = typer.data.listCompleted;
       save.listsCompleted = typer.data.listsCompleted;
 
-      save.timePlayed = (Date.now() - typer.data.timeLoaded) / 1000;
+      typer.data.timePlayed += (Date.now() - typer.data.timeLoaded) / 1000;
+      save.timePlayed = typer.data.timePlayed;
+      typer.data.timeLoaded = Date.now();
       
       save.version = currentVersion;
 
@@ -259,7 +266,7 @@ angular.module('typerApp', [])
       var filteredNew = filtered.filter(word => word.typeCount == 0);
       
       var luck = Math.floor(Math.random() * 101); //1-100
-      var playerLuck = typer.data.luck + typer.getUpgradeLuck();
+      var playerLuck = typer.data.luckPurchased + typer.getUpgradeLuck();
 
       if (luck < playerLuck && filteredNew.length > 0) { //if luck is under player luck
         var newWord = filteredNew[Math.floor(Math.random() * filteredNew.length)];
@@ -490,7 +497,7 @@ angular.module('typerApp', [])
     typer.data.incorrect = false;
     typer.data.streak = 0;
     typer.data.maxStreak = 100;
-    typer.data.streakBonus = 5;
+    typer.data.streakBonus = 4;
     typer.data.newBonus = 2;    
   
     typer.data.speedBonusMaxWPM = 100;
@@ -503,10 +510,10 @@ angular.module('typerApp', [])
     typer.data.keyboardBaseCost = 100;
 
     typer.data.vowelMultiplier = 4;
-    typer.data.consonantMultiplier = 2;
-    typer.data.spaceMultiplier = 2.5;
-    typer.data.luckMultiplier = 1.1;
-    typer.data.keyboardMultiplier = 2;
+    typer.data.consonantMultiplier = 1.65;
+    typer.data.spaceMultiplier = 2;
+    typer.data.luckMultiplier = 1.05;
+    typer.data.keyboardMultiplier = 1.8;
 
     typer.data.maxSpace = 100;
     typer.data.maxLuck = 100;
@@ -577,7 +584,7 @@ angular.module('typerApp', [])
           name = "Lists!"
           break;
         case 4:
-          name = "You Win!"
+          name = "Good luck"
           break;
         default:
           name = "You Win!"
@@ -663,13 +670,13 @@ angular.module('typerApp', [])
 
     typer.purchaseVowel = function(letter) {
       typer.data.money -= typer.getVowelCost();
-      typer.data.unlockedLetters.push(letter.toUpperCase());
+      typer.data.unlockedLetters.push(letter.toUpperCase().trim());
       typer.data.unlockedVowels++;
     };
 
     typer.purchaseConsonant = function(letter) {
       typer.data.money -= typer.getConsonantCost();
-      typer.data.unlockedLetters.push(letter.toUpperCase());
+      typer.data.unlockedLetters.push(letter.toUpperCase().trim());
       typer.data.unlockedConsonants++;
     };
     
@@ -890,7 +897,7 @@ angular.module('typerApp', [])
       var bonus = 1;
 
       if (typer.getUnlockedWords().length > 1) {    //no bonuses on duplicate words    
-        bonus = 1 + (typer.data.streakBonus*typer.data.streak/typer.data.maxStreak);
+        bonus = 1 + (typer.data.streakBonus * (typer.data.streak / typer.data.maxStreak));
 
         if (bonus > typer.data.streakBonus) {
           bonus = typer.data.streakBonus;
@@ -998,7 +1005,7 @@ angular.module('typerApp', [])
       typer.data.unlockedLetters = typer.data.baseUnlockedLetters.slice(0);
       fewest.word.split('').filter(function(item, i, ar){ return ar.indexOf(item) === i; }).forEach(element => {
         element = element.toUpperCase();
-        typer.data.unlockedLetters.push(element)
+        typer.data.unlockedLetters.push(element.trim())
         if (typer.data.vowels.includes(element)) {
           typer.data.unlockedVowels++;
         }
@@ -1028,6 +1035,7 @@ angular.module('typerApp', [])
 
       //reset purchases
       typer.data.keyboardPurchased = 1;
+      typer.data.luckPurchased = 0;
 
       
       //reset stats? TODO
@@ -1158,7 +1166,7 @@ angular.module('typerApp', [])
               typer.data.word = "";
               typer.data.incorrect = false;            
               typer.data.currentWordTimer  = performance.now();
-            }, 1000);
+            }, 500);
           } else {
             typer.hasTypo = true;
           }          
