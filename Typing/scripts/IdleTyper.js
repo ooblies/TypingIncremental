@@ -19,7 +19,7 @@ $(function() {
 angular.module('typerApp', [])
   .controller('TyperController', function($http, $scope, $timeout, $interval) {
     var typer = this;  
-    var currentVersion = 2.2; 
+    var currentVersion = 2.3; 
     
 
     typer.data = {};
@@ -180,6 +180,9 @@ angular.module('typerApp', [])
           //2.2 updates go here
           typer.data.lists.filter(list => list.code == "gutenberg1")[0].description = "The 1,000 most frequent words in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.";
           //also need to be added to new game section
+        }
+        if (typer.data.version < 2.3) {
+          typer.data.upgrades.filter(upg => upg.code == "luck")[0].description = "Increases the chance of getting a word you've never typed correctly.";
         }
 
         typer.save();
