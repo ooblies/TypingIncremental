@@ -470,7 +470,7 @@ angular.module('typerApp', [])
         //luck +
         code: "luck",
         name: "Starting Luck",
-        description: "Grants additional money for each word typed.",
+        description: "Increases the chance of getting a word you've never typed correctly.",
         baseCost: 1,
         costMultiplier: 1.1,
         purchased: 0,
