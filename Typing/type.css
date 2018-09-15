@@ -1,8 +1,89 @@
+html {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .red {
-    color: red;
+    color: #dc3545;
 }
 .green {
     color: green;
+}
+.orange {
+    color: orange;
+    
+}
+.bottom-stat-padding{ 
+  padding-right: 30px;
+  padding-left:30px;
+}
+.bottom-spacer {
+  padding-bottom:1px;
+}
+.multiplier-row {
+  height:100px;
+}
+.stat-card .card-title {
+  padding-top:10px;
+}
+.seen-text {
+  padding-top:5px;
+}
+.stat-card {
+  margin-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-color:dimgray;
+}
+.word-border {
+  border-bottom:solid 5px;
+}
+.color-display {
+  height:50px;
+  width:50px;
+}
+.stat-card  h5 {
+  border-bottom: 1px solid dimgrey;
+  padding-bottom:10px;
+}
+.stat-card .card-text {
+  line-height: 1.5;
+}
+.stat-row {
+  height:40px;
+  margin-bottom:15px;
+}
+.bottom-stat-row {
+  padding-bottom: 15px;
+}
+.discord-link {
+  width:200px;
+}
+.no-margin-right {
+  margin-right:0px !important;
+}
+.no-margin-left {
+  margin-left:0px !important;
+}
+.dropdown-custom {
+  position: absolute; 
+  will-change: transform; 
+  top: 0px; 
+  left: 0px; 
+  transform: translate3d(0px, 38px, 0px);
+}
+.no-padding {
+  padding: 0px 0px 0px 0px;
+}
+.card-deck .card {
+  margin-bottom: 15px;
+}
+.list-points {
+  align-self: flex-end;
+}
+.modal-card {
+  margin-bottom: 15px;
 }
  .grey {
      background: #e9ecef;
@@ -14,8 +95,26 @@
   color: white; 
  }
 
+ .pointer {
+   cursor: pointer;
+ }
+.reset {
+  height:10px;
+  position: relative;
+}
  .deleteLink:hover{
   color: inherit; /* Inherits color property from its parent */
+}
+.floaterDiv {
+  color:green;
+  align-content: center;
+  font-size: 24px;
+  margin-top:-50px;
+}
+
+.floaterDiv>.floatingMoney {
+  position: absolute;
+  left:45%;
 }
 
 .fullWidth {
@@ -34,8 +133,15 @@
   text-align: right;
 }
 .newBadge {
+    margin-left: -15px;
+}
+.newCurrentBadge {
+    margin-left: -15px;
     font-size: 15px;
-    margin-top:15px;
+}
+.newLastBadge, .newNextBadge {
+    margin-left: -8px;
+    font-size: 8px;
 }
 
 .currentWord {
@@ -44,12 +150,39 @@
   text-align: center;
 }
 
+.currentWord div {
+  display: table;
+  margin: 0 auto;
+  position: relative;
+}
+
+.currentWord div sup {
+  position: absolute;
+  right: -29px;
+  top: 13px;
+}
+
+.nextWord, .lastWord {
+  font-size:32px;
+  font-weight: 600;
+  color: slategray;
+}
+
+.nextWord {
+  text-align: right;
+}
+.lastWord {
+  text-align: left;
+}
+
+.record {
+  font-weight: bold;
+  display: block
+}
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
     line-height: 60px; /* Vertically center the text there */
     background-color: #f5f5f5;
   }

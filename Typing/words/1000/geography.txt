@@ -1,0 +1,1000 @@
+Ufa
+Qom
+Chad
+Cuba
+Fiji
+Iran
+Iraq
+Laos
+Mali
+Oman
+Peru
+Togo
+Mesa
+Reno
+Cary
+Waco
+Kent
+Orem
+Erie
+Yuma
+Bend
+Lynn
+Troy
+Napa
+Gary
+LIMA
+Pune
+Kano
+ROME
+KYIV
+Cali
+Bonn
+Zibo
+Giza
+BAKU
+Kobe
+Hama
+Wuxi
+Homs
+Agra
+Heze
+Cixi
+Omsk
+Jimo
+Perm
+Benin
+Chile
+China
+Congo
+Egypt
+Gabon
+Ghana
+Haiti
+India
+Italy
+Japan
+Kenya
+Libya
+Malta
+Nepal
+Niger
+Qatar
+Samoa
+Spain
+Sudan
+Syria
+Yemen
+Omaha
+Miami
+Tulsa
+Tampa
+Plano
+Akron
+Tempe
+Salem
+Fargo
+Provo
+Elgin
+Davie
+Tyler
+Vista
+Allen
+Flint
+Pasco
+TOKYO
+SEOUL
+Delhi
+Osaka
+CAIRO
+PARIS
+Lagos
+DHAKA
+Essen
+Wuhan
+Milan
+Busan
+Xi'an
+Surat
+KABUL
+DAKAR
+AMMAN
+Izmir
+Daegu
+Medan
+TUNIS
+Dubai
+Patna
+ACCRA
+Jilin
+Linyi
+MINSK
+Hefei
+Liuan
+Taian
+QUITO
+Mopti
+Perth
+Kyoto
+Wujin
+Kayes
+Rugao
+Kochi
+Bursa
+Thane
+Laiwu
+Karaj
+Ruian
+Adana
+Yushu
+SOFIA
+Davao
+Bijie
+Kazan
+Anqiu
+Ulsan
+Zhuji
+Ezhou
+Haora
+Benxi
+Xinyi
+Ahwaz
+Suwon
+Wuwei
+Chiba
+Angola
+Belize
+Bhutan
+Brazil
+Canada
+Cyprus
+France
+Gambia
+Greece
+Guinea
+Jordan
+Latvia
+Malawi
+Mexico
+Monaco
+Norway
+Panama
+Poland
+Rwanda
+Serbia
+Sweden
+Turkey
+Uganda
+Zambia
+Dallas
+Austin
+Denver
+Boston
+Tucson
+Fresno
+Aurora
+Newark
+Irvine
+Toledo
+Durham
+Laredo
+Irving
+Tacoma
+Oxnard
+Mobile
+Frisco
+Eugene
+Peoria
+Corona
+Pomona
+Joliet
+Orange
+Dayton
+Olathe
+Denton
+Warren
+Topeka
+Norman
+Arvada
+Odessa
+Downey
+Lowell
+Pueblo
+Clovis
+Rialto
+Renton
+Sparks
+Albany
+Quincy
+Lawton
+Yakima
+Carson
+Carmel
+Edmond
+Newton
+Nashua
+Duluth
+Hoover
+Conroe
+Merced
+Cicero
+Auburn
+Tustin
+Folsom
+Perris
+Racine
+Upland
+Layton
+Camden
+Temple
+MANILA
+Mumbai
+MOSCOW
+Nagoya
+LONDON
+TEHRAN
+BOGOTA
+Taipei
+Lahore
+MADRID
+RIYADH
+Yangon
+ANKARA
+ATHENS
+BERLIN
+Sydney
+Recife
+LUANDA
+Durban
+Kanpur
+Jeddah
+Naples
+Harbin
+Jaipur
+Nagpur
+Aleppo
+LISBON
+Dalian
+Ji'nan
+HAVANA
+SANA'A
+WARSAW
+Nanhai
+Fuzhou
+Xiamen
+Puning
+Ibadan
+Urumqi
+Yantai
+Fuyang
+Shunde
+Manaus
+Xuzhou
+Baotou
+VIENNA
+Indore
+Suzhou
+Nakuru
+Ningbo
+Anshan
+Pizhou
+Datong
+Bhopal
+HARARE
+Fushun
+MAPUTO
+Nan'an
+Douala
+Daqing
+Tabriz
+Bozhou
+Xintai
+Handan
+Pingdu
+Makkah
+Luzhou
+Almaty
+Yiyang
+Huaian
+Shiraz
+Multan
+Kalyan
+Xishan
+PRAGUE
+Fuqing
+Kumasi
+Meerut
+Lufeng
+Yixing
+Leqing
+OTTAWA
+Nashik
+Rizhao
+Huzhou
+Samara
+Wuxian
+Yuzhou
+Leshan
+Toluca
+LUSAKA
+Qidong
+Zigong
+Jining
+Beiliu
+Sendai
+BAMAKO
+Ziyang
+DUBLIN
+Rajkot
+Kaduna
+Linhai
+Haimen
+Liling
+Xinhui
+Ruzhou
+Albania
+Algeria
+Andorra
+Armenia
+Austria
+Bahamas
+Bahrain
+Belarus
+Belgium
+Bermuda
+Bolivia
+Burundi
+Comoros
+Croatia
+Denmark
+Ecuador
+Eritrea
+Estonia
+Finland
+Georgia
+Germany
+Grenada
+Hungary
+Iceland
+Jamaica
+Lebanon
+Lesotho
+Liberia
+Mayotte
+Morocco
+Myanmar
+Namibia
+Nigeria
+Reunion
+Romania
+Senegal
+Somalia
+Tunisia
+Ukraine
+Uruguay
+Vietnam
+Chicago
+Houston
+Phoenix
+Seattle
+El Paso
+Detroit
+Memphis
+Atlanta
+Raleigh
+Oakland
+Wichita
+Anaheim
+St Paul
+Lincoln
+Orlando
+Buffalo
+Madison
+Lubbock
+Norfolk
+Gilbert
+Hialeah
+Garland
+Fremont
+Spokane
+Modesto
+Fontana
+Yonkers
+Ontario
+Jackson
+Hayward
+Salinas
+Killeen
+McAllen
+Miramar
+Midland
+Hampton
+Visalia
+Concord
+Vallejo
+Abilene
+Lansing
+Antioch
+Gresham
+Everett
+Boulder
+Norwalk
+Greeley
+Burbank
+Kenosha
+Roanoke
+Compton
+Roswell
+Sunrise
+Livonia
+Fishers
+Redding
+Deltona
+Menifee
+Suffolk
+Reading
+Clifton
+Danbury
+Trenton
+Mission
+Medford
+Warwick
+Manteca
+Alameda
+Baytown
+Hammond
+Wyoming
+Turlock
+Decatur
+JAKARTA
+Kolkata
+BEIJING
+Karachi
+BANGKOK
+Chennai
+Tianjin
+BAGHDAD
+Toronto
+Nanjing
+Chengdu
+Abidjan
+Bandung
+ALGIERS
+Qingdao
+Incheon
+Taiyuan
+Lanzhou
+Wenzhou
+Sikasso
+Nanning
+Hamburg
+Tianmen
+Suizhou
+Nanyang
+Esfahan
+TRIPOLI
+Taizhou
+Luoyang
+Daejeon
+Xiantao
+Kharkiv
+Gwangju
+Xinghua
+Hechuan
+Guigang
+Weifang
+Guiping
+Huainan
+Suining
+Changde
+Tijuana
+Liuyang
+YAOUNDE
+Xuanwei
+Shantou
+Leizhou
+Xinyang
+Taixing
+Liuzhou
+Gaozhou
+KAMPALA
+Madurai
+München
+Bazhong
+Leiyang
+Saitama
+Dongtai
+Wenling
+Chifeng
+Makasar
+Macheng
+Rosario
+Calgary
+YEREVAN
+CONAKRY
+Linzhou
+Taishan
+Anguilla
+Barbados
+Botswana
+Bulgaria
+Cambodia
+Cameroon
+Colombia
+Djibouti
+Dominica
+Ethiopia
+Honduras
+Malaysia
+Maldives
+Mongolia
+Pakistan
+Paraguay
+Portugal
+Slovenia
+Suriname
+Tanzania
+Thailand
+Zimbabwe
+New York
+San Jose
+Columbus
+Portland
+Honolulu
+Stockton
+St Louis
+Chandler
+Glendale
+Richmond
+Amarillo
+McKinney
+Palmdale
+Lakewood
+Surprise
+Columbia
+Stamford
+Hartford
+Berkeley
+Pearland
+Beaumont
+El Monte
+Carlsbad
+Temecula
+Murrieta
+Palm Bay
+Billings
+Lakeland
+El Cajon
+Meridian
+Lawrence
+Brockton
+Hesperia
+Dearborn
+Longmont
+Edinburg
+Kirkland
+Waukegan
+O'Fallon
+Whittier
+Alhambra
+Avondale
+Santa Fe
+Westland
+Longview
+Cranston
+Goodyear
+Plymouth
+Franklin
+Milpitas
+Scranton
+Loveland
+Gastonia
+Evanston
+Appleton
+Missoula
+Bismarck
+Waukesha
+Gulfport
+Redlands
+Shanghai
+Curitiba
+Surabaya
+Taichung
+TASHKENT
+Katowice
+Campinas
+Changsha
+San Juan
+Nanchang
+DAMASCUS
+Yokohama
+Chaoyang
+BRASILIA
+Brisbane
+Nanchong
+Tangshan
+BUDAPEST
+ASUNCION
+BELGRADE
+Tengzhou
+Qiqihaer
+Vadodara
+Jinjiang
+Shangqiu
+Jianyang
+Semarang
+Ludhiana
+Neijiang
+Tongzhou
+Kawasaki
+Jiangjin
+Jiangyin
+Dengzhou
+Auckland
+Omdurman
+Valencia
+Changshu
+Xiaoshan
+Varanasi
+Quanzhou
+Haicheng
+Caloocan
+Kalookan
+Jingzhou
+Mianyang
+Tianshui
+Adelaide
+Jabalpur
+Dingzhou
+Zoucheng
+Guang'an
+Hanchuan
+Zhucheng
+Edmonton
+BRUSSELS
+Amritsar
+Lianyuan
+Peshawar
+Zhangqiu
+Yongzhou
+Srinagar
+Xianyang
+Feicheng
+Voronezh
+Argentina
+Australia
+Guatemala
+Indonesia
+Lithuania
+Mauritius
+Nicaragua
+Singapore
+Sri Lanka
+Swaziland
+Venezuela
+San Diego
+Charlotte
+Las Vegas
+Baltimore
+Milwaukee
+Arlington
+Cleveland
+Santa Ana
+Riverside
+Henderson
+Anchorage
+Rochester
+Knoxville
+Worcester
+Oceanside
+Vancouver
+Elk Grove
+Lancaster
+Sunnyvale
+Hollywood
+Escondido
+Fullerton
+Roseville
+New Haven
+Elizabeth
+Lafayette
+Ann Arbor
+Allentown
+Fairfield
+Cambridge
+Inglewood
+Waterbury
+Daly City
+Hillsboro
+Green Bay
+San Mateo
+Davenport
+Vacaville
+Beaverton
+Asheville
+Livermore
+Hawthorne
+Champaign
+St George
+Melbourne
+Kennewick
+Lynchburg
+St Joseph
+San Ramon
+Jonesboro
+Kalamazoo
+Iowa City
+Bethlehem
+Rock Hill
+Pittsburg
+Pawtucket
+Flagstaff
+Frederick
+Sao Paulo
+Guangzhou
+HONG KONG
+Bangalore
+SINGAPORE
+Chongqing
+Barcelona
+Monterrey
+PYONGYANG
+Fortaleza
+CAPE TOWN
+Kaohsiung
+Rotterdam
+BUCHAREST
+Zaozhuang
+STOCKHOLM
+Maracaibo
+Koulikoro
+Tangerang
+Huhehaote
+Zhanjiang
+Palembang
+Guarulhos
+Yongcheng
+Fengcheng
+MOGADISHU
+Lianjiang
+Hiroshima
+El-Jadida
+Shouguang
+Changzhou
+Marrakech
+Faridabad
+Allahabad
+Volgograd
+AMSTERDAM
+Qianjiang
+Yongchuan
+Ghaziabad
+Liaocheng
+Gaziantep
+Azerbaijan
+Bangladesh
+Cape Verde
+Costa Rica
+Guadeloupe
+Kazakhstan
+Kyrgyzstan
+Luxembourg
+Madagascar
+Martinique
+Mauritania
+Montenegro
+Montserrat
+Mozambique
+Seychelles
+Tajikistan
+Uzbekistan
+Fort Worth
+Washington
+Louisville
+Sacramento
+Long Beach
+Pittsburgh
+Scottsdale
+Chesapeake
+Boise City
+Des Moines
+Birmingham
+Montgomery
+Huntsville
+Shreveport
+Cape Coral
+Round Rock
+Wilmington
+Evansville
+Richardson
+Clearwater
+Costa Mesa
+High Point
+Manchester
+Centennial
+Lewisville
+South Bend
+Las Cruces
+Tuscaloosa
+San Angelo
+Boca Raton
+San Marcos
+Rio Rancho
+South Gate
+Portsmouth
+Plantation
+Greenville
+Fall River
+Bellingham
+Sugar Land
+Fort Smith
+Palm Coast
+Buena Park
+Pleasanton
+Sioux City
+Somerville
+Fort Myers
+Springdale
+Bellflower
+Cedar Park
+Union City
+Rapid City
+Schaumburg
+Southfield
+Lauderhill
+Faisalabad
+Rawalpindi
+Chittagong
+Coimbatore
+Santa Cruz
+MONTEVIDEO
+Al-Hasakeh
+PHNOM PENH
+Gujranwala
+La Matanza
+Jamshedpur
+Xiangcheng
+Zhongxiang
+Mudanjiang
+Vijayawada
+Liupanshui
+Kitakyushu
+Wafangdian
+Afghanistan
+El Salvador
+Ivory Coast
+New Zealand
+Philippines
+Puerto Rico
+Saint Lucia
+South Sudan
+Switzerland
+Netherlands
+Timor Leste
+Los Angeles
+San Antonio
+Albuquerque
+Kansas City
+Minneapolis
+New Orleans
+Bakersfield
+Jersey City
+Chula Vista
+Baton Rouge
+Little Rock
+Tallahassee
+Brownsville
+Chattanooga
+Sioux Falls
+Springfield
+Clarksville
+Gainesville
+Santa Clara
+Simi Valley
+Victorville
+West Jordan
+Westminster
+West Covina
+Santa Maria
+League City
+Federal Way
+New Bedford
+Miami Beach
+San Leandro
+Bloomington
+Johns Creek
+Lake Forest
+Chino Hills
+Bolingbrook
+New Britain
+MEXICO CITY
+Guadalajara
+ADDIS ABABA
+Quezon City
+Burkina Faso
+Saudi Arabia
+Sierra Leone
+South Africa
+Turkmenistan
+Philadelphia
+Jacksonville
+Indianapolis
+Fayetteville
+Grand Rapids
+Newport News
+Garden Grove
+Fort Collins
+Murfreesboro
+Cedar Rapids
+Independence
+Broken Arrow
+Santa Monica
+Redwood City
+New Rochelle
+Apple Valley
+BUENOS AIRES
+Johannesburg
+KUALA LUMPUR
+Porto Alegre
+Shijiazhuang
+Barranquilla
+ANTANANARIVO
+Zhangjiagang
+French Guiana
+Great Britain
+Guinea-Bissau
+Liechtenstein
+San Francisco
+Oklahoma City
+Overland Park
+Port St Lucie
+Coral Springs
+Thousand Oaks
+Miami Gardens
+Pompano Beach
+Sandy Springs
+Jurupa Valley
+Wichita Falls
+Mission Viejo
+Santa Barbara
+Newport Beach
+Mountain View
+Brooklyn Park
+New Braunfels
+Boynton Beach
+Warner Robins
+Missouri City
+Dar es Salaam
+Tel Aviv-Yafo
+SANTO DOMINGO
+West Midlands
+Ekaterinoburg
+Visakhapatnam
+Cayman Islands
+Czech Republic
+Virgin Islands
+Virginia Beach
+Corpus Christi
+San Bernardino
+Salt Lake City
+Pembroke Pines
+Spokane Valley
+Citrus Heights
+Mount Pleasant
+Rancho Cordova
+Rio de Janeiro
+Belo Horizonte
+PORT-AU-PRINCE
+West Yorkshire
+Rostov-na-Donu
+Dnipropetrovsk
+GUATEMALA CITY
+Slovak Republic
+Solomon Islands
+North Las Vegas
+Fort Lauderdale
+College Station
+West Palm Beach
+Deerfield Beach
+Rochester Hills
+Nizhny Novgorod
