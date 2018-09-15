@@ -19,7 +19,7 @@ $(function() {
 angular.module('typerApp', [])
   .controller('TyperController', function($http, $scope, $timeout, $interval) {
     var typer = this;  
-    var currentVersion = 2; //changing this will delete older saves until you do a merging thing.
+    var currentVersion = 2.2; 
     
 
     typer.data = {};
@@ -167,16 +167,18 @@ angular.module('typerApp', [])
       typer.data.timeLoaded = Date.now();
       
       if (!typer.data.version || typer.data.version < 2) {
-        return;
+        return; //delete save for < 2.0
       }
       if (typer.data.version < currentVersion) {
         //Updates go here.
         if (typer.data.version < 2.1) {
           //2.1 updates go here
+          typer.data.lists.filter(list => list.code == "gutenberg1")[0].description = "The 1,000 most frequent words in the 57,000 free e-Book library of Project Gutenberg. Unlocks the next Gutenberg list on completion.";
           //also need to be added to new game section
         }
         if (typer.data.version < 2.2) {
           //2.2 updates go here
+          typer.data.lists.filter(list => list.code == "gutenberg1")[0].description = "The 1,000 most frequent words in the 57,000 free eBook library of Project Gutenberg. Unlocks the next Gutenberg list on completion.";
           //also need to be added to new game section
         }
 
