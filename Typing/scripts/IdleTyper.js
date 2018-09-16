@@ -58,7 +58,10 @@ angular.module('typerApp', [])
     typer.showDeleteModal = function() {
       $('#deleteModal').modal('show');
     }
-    typer.showModal = function() {
+    typer.showModal = function() {      
+      $('#btnSpace').popover('hide')
+      $('#btnLuck').popover('hide')
+      $('#btnKeyboard').popover('hide')
       $('#winModal').modal('show');
       $('[data-toggle="popover"]').popover();
     };
@@ -653,27 +656,27 @@ angular.module('typerApp', [])
 
     
     typer.purchaseSpace = function() {
-      typer.data.money -= typer.getSpaceCost();
-      typer.data.spacePurchased++;
-
       $('#btnSpace').popover('hide')
       $('#btnSpace').blur();
+
+      typer.data.money -= typer.getSpaceCost();
+      typer.data.spacePurchased++;
     };
 
     typer.purchaseLuck = function() {
-      typer.data.money -= typer.getLuckCost();
-      typer.data.luckPurchased++;
-
       $('#btnLuck').popover('hide')
       $('#btnLuck').blur();
+
+      typer.data.money -= typer.getLuckCost();
+      typer.data.luckPurchased++;
     };
 
     typer.purchaseKeyboard = function() {
-      typer.data.money -= typer.getKeyboardCost();
-      typer.data.keyboardPurchased++;
-
       $('#btnKeyboard').popover('hide')
       $('#btnKeyboard').blur();
+
+      typer.data.money -= typer.getKeyboardCost();
+      typer.data.keyboardPurchased++;
     };
 
 

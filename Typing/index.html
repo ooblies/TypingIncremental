@@ -179,19 +179,19 @@
               </div>
               <br><br>
               <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases max word size by 1 character.<br/><br/>Current max: {{typer.data.spacePurchased + typer.getUpgradeSpaces()}} characters">
-                <button id="btnSpace" ng-style="{ 'pointer-events' : (typer.data.money < typer.getSpaceCost()) ? 'none' : 'auto' }"  ng-disabled="typer.data.money < typer.getSpaceCost()" ng-if="typer.data.spacePurchased < typer.data.maxSpace" ng-click="typer.purchaseSpace();" type="button" class="btn btn-secondary">
+                <button id="btnSpace" ng-style="{ 'pointer-events' : (typer.data.money < typer.getSpaceCost()) ? 'none' : 'auto' }"  ng-disabled="typer.data.money < typer.getSpaceCost()" ng-show="typer.data.spacePurchased < typer.data.maxSpace" ng-click="typer.purchaseSpace();" type="button" class="btn btn-secondary">
                   Buy Character - ${{typer.getSpaceCost() | number}}
                 </button>
               </div>
 
               <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases money earned by $1 per letter.<br/><br/>Current: ${{typer.getKeyboardValue()}} per letter">
-                <button id="btnKeyboard" ng-style="{ 'pointer-events' : (typer.data.money < typer.getKeyboardCost()) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.getKeyboardCost()" ng-if="typer.data.keyboardPurchased < typer.data.maxKeyboard" ng-click="typer.purchaseKeyboard();" type="button" class="btn btn-secondary">
+                <button id="btnKeyboard" ng-style="{ 'pointer-events' : (typer.data.money < typer.getKeyboardCost()) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.getKeyboardCost()" ng-show="typer.data.keyboardPurchased < typer.data.maxKeyboard" ng-click="typer.purchaseKeyboard();" type="button" class="btn btn-secondary">
                   Improve Keyboard - ${{typer.getKeyboardCost() | number}}
                 </button>
               </div>
 
               <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases the chance of getting a word you've never typed correctly by 1%.<br/><br/>Current luck: {{typer.data.luckPurchased}}%">
-                <button id="btnLuck"  ng-style="{ 'pointer-events' : (typer.data.money < typer.getLuckCost()) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.getLuckCost()" ng-if="typer.data.luckPurchased + typer.getUpgradeLuck() < typer.data.maxLuck" ng-click="typer.purchaseLuck();" type="button" class="btn btn-secondary" >
+                <button id="btnLuck"  ng-style="{ 'pointer-events' : (typer.data.money < typer.getLuckCost()) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.getLuckCost()" ng-show="typer.data.luckPurchased + typer.getUpgradeLuck() < typer.data.maxLuck" ng-click="typer.purchaseLuck();" type="button" class="btn btn-secondary" >
                   Buy Luck - ${{typer.getLuckCost() | number}}
                 </button>
               </div>
