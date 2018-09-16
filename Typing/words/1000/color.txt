@@ -798,7 +798,7 @@ Antique bronze,#665D1E
 Arylide yellow,#E9D66B
 Baby blue eyes,#A1CAF1
 B'dazzled blue,#2E5894
-Big dip o’ruby,#9C2542
+Big dip o'ruby,#9C2542
 Bleu de France,#318CE7
 Brilliant rose,#FF55A3
 Cadmium orange,#ED872D

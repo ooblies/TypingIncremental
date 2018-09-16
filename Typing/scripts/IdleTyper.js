@@ -12,7 +12,7 @@ $(function() {
 angular.module('typerApp', [])
   .controller('TyperController', function($http, $scope, $timeout, $interval) {
     var typer = this;  
-    var currentVersion = 2.3; 
+    var currentVersion = 2.4; 
     
 
     typer.data = {};
@@ -159,10 +159,12 @@ angular.module('typerApp', [])
       typer.data = parsed;
       typer.data.timeLoaded = Date.now();
       
+      
+
+      
       if (!typer.data.version || typer.data.version < 2) {
         return; //delete save for < 2.0
       }
-      if (typer.data.version < currentVersion) {
         //Updates go here.
         if (typer.data.version < 2.1) {
           //2.1 updates go here
@@ -177,10 +179,16 @@ angular.module('typerApp', [])
         if (typer.data.version < 2.3) {
           typer.data.upgrades.filter(upg => upg.code == "luck")[0].description = "Increases the chance of getting a word you've never typed correctly.";
         }
+        if (typer.data.version < 2.4) {
+          //fix apostrophe ’
+          typer.data.words.forEach(word => {
+            if (word.word.startsWith("Big dip o")) {
+              word.word = "Big dip o'ruby";
+            }
+          });
+        }
 
         typer.save();
-      }  
-      
 
       if (typer.data.words.length == 0) {
         typer.loadWords();
@@ -649,6 +657,7 @@ angular.module('typerApp', [])
       typer.data.spacePurchased++;
 
       $('#btnSpace').popover('hide')
+      $('#btnSpace').blur();
     };
 
     typer.purchaseLuck = function() {
@@ -656,6 +665,7 @@ angular.module('typerApp', [])
       typer.data.luckPurchased++;
 
       $('#btnLuck').popover('hide')
+      $('#btnLuck').blur();
     };
 
     typer.purchaseKeyboard = function() {
@@ -663,6 +673,7 @@ angular.module('typerApp', [])
       typer.data.keyboardPurchased++;
 
       $('#btnKeyboard').popover('hide')
+      $('#btnKeyboard').blur();
     };
 
 
@@ -1172,15 +1183,19 @@ angular.module('typerApp', [])
       };
     });
 
-    $(document).keypress(function(e){
+    $(document).keypress(function(e){   
       if (!typer.data.correct && !typer.data.incorrect && e.key.toUpperCase() != "ENTER") {
         if (typer.data.word.length == 0 && e.key.toUpperCase() == " ") {
           //if space is the first thing pressed, don't count as error.
         } else {
+          if (e.key.toUpperCase() != "BACKSPACE")
           typer.data.word += e.key.toUpperCase();
-          $scope.$apply();
+          $scope.$apply();     
         }        
       }
+      if (e.key == "'" || e.key.toUpperCase() == "BACKSPACE" || e.key.toUpperCase == " ") {
+        e.preventDefault();
+      }                    
     });
       
   });
