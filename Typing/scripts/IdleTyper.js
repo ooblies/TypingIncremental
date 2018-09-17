@@ -12,7 +12,7 @@ $(function() {
 angular.module('typerApp', [])
   .controller('TyperController', function($http, $scope, $timeout, $interval) {
     var typer = this;  
-    var currentVersion = 2.4; 
+    var currentVersion = 2.5; 
     
 
     typer.data = {};
@@ -189,6 +189,20 @@ angular.module('typerApp', [])
               word.word = "Big dip o'ruby";
             }
           });
+        }
+        if (typer.data.version < 2.5) {
+          //fix ü
+          typer.data.words.forEach(word => {
+            if (word.word == "München") {
+              word.word = "Marietta"
+            }
+          });
+          typer.data.words.forEach(word => {
+            if (word.word == "here]'s") {
+              word.word = "here's";
+            }
+          }
+
         }
 
         typer.save();
