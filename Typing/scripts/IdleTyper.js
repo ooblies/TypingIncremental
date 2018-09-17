@@ -201,7 +201,7 @@ angular.module('typerApp', [])
             if (word.word == "here]'s") {
               word.word = "here's";
             }
-          }
+          });
 
         }
 
