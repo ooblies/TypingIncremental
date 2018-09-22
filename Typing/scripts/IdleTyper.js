@@ -12,7 +12,7 @@ $(function() {
 angular.module('typerApp', [])
   .controller('TyperController', function($http, $scope, $timeout, $interval) {
     var typer = this;  
-    var currentVersion = 2.5; 
+    var currentVersion = 2.6; 
     
 
     typer.data = {};
@@ -54,6 +54,12 @@ angular.module('typerApp', [])
     typer.getAllowedTypos = function() {
       return typer.data.upgrades.filter(upg => upg.code == "typo")[0].purchased;
     };
+    typer.getUpgradeSpeed = function() {
+      return typer.data.upgrades.filter(upg => upg.code == "speed")[0].purchased;
+    };
+    typer.getUpgradeStreak = function() {
+      return typer.data.upgrades.filter(upg => upg.code == "streak")[0].purchased;
+    }
 
     typer.showDeleteModal = function() {
       $('#deleteModal').modal('show');
@@ -204,6 +210,32 @@ angular.module('typerApp', [])
           });
 
         }
+        if (typer.data.version < 2.6) { //2.6          
+          typer.data.maxWPM = 100;
+          typer.data.maxStreak = 100;
+          typer.data.maxStreakBonus = 5;
+          typer.data.maxSpeedBonus = 5;
+          typer.data.upgrades.push(
+            {
+              //MaxSpeed
+              code: "speed",
+              name: "Max Speed",
+              description: "Increases the maximum WPM multiplier you can earn.",
+              baseCost: 1,
+              costMultiplier: 1.3,
+              purchased: 0,
+              maxPurchases: 95,
+            }, {
+              //MaxStreak
+              code: "streak",
+              name: "Max Streak",
+              description: "Increases the maximum streak multiplier you can earn.",
+              baseCost: 1,
+              costMultiplier: 1.3,
+              purchased: 0,
+              maxPurchases: 95,
+            });
+        }
 
         typer.save();
 
@@ -249,6 +281,12 @@ angular.module('typerApp', [])
       typer.data.timePlayed += (Date.now() - typer.data.timeLoaded) / 1000;
       save.timePlayed = typer.data.timePlayed;
       typer.data.timeLoaded = Date.now();
+
+      save.maxStreak = typer.data.maxStreak;    
+      save.maxWPM = typer.data.maxWPM;
+
+      save.maxStreakBonus = typer.data.maxStreakBonus;
+      save.maxSpeedBonus = typer.data.maxSpeedBonus;
       
       save.version = currentVersion;
 
@@ -297,13 +335,16 @@ angular.module('typerApp', [])
         var newWord = filtered[Math.floor(Math.random() * filtered.length)];
       }
 
+      //move lastword
+      //move currentword      
       typer.data.lastWord = typer.data.currentWord;
+      //move nextWord      
       typer.data.currentWord = typer.data.nextWord;
+      //get new word
       typer.data.nextWord = newWord;
 
       if (!typer.data.currentWord) {
         typer.getNewWord();
-
       }
             
       typer.typos = 0;
@@ -496,6 +537,24 @@ angular.module('typerApp', [])
         costMultiplier: 1.1,
         purchased: 0,
         maxPurchases: 100,
+      }, {
+        //MaxSpeed
+        code: "speed",
+        name: "Max Speed",
+        description: "Increases the maximum WPM multiplier you can earn.",
+        baseCost: 1,
+        costMultiplier: 1.3,
+        purchased: 0,
+        maxPurchases: 95,
+      }, {
+        //MaxStreak
+        code: "streak",
+        name: "Max Streak",
+        description: "Increases the maximum streak multiplier you can earn.",
+        baseCost: 1,
+        costMultiplier: 1.3,
+        purchased: 0,
+        maxPurchases: 95,
       }];
 
       
@@ -503,7 +562,14 @@ angular.module('typerApp', [])
       typer.data.listCompleted = false;
       typer.data.listsCompleted = 0;
       
-      typer.data.version = 2;
+      
+      typer.data.maxStreak = 100;    
+      typer.data.maxWPM = 100;
+
+      typer.data.maxStreakBonus = 5;
+      typer.data.maxSpeedBonus = 5;
+      
+      typer.data.version = currentVersion;
 
       typer.loadWords();
       
@@ -519,12 +585,8 @@ angular.module('typerApp', [])
     typer.data.correct = false;
     typer.data.incorrect = false;
     typer.data.streak = 0;
-    typer.data.maxStreak = 100;
-    typer.data.streakBonus = 4;
-    typer.data.newBonus = 2;    
-  
-    typer.data.speedBonusMaxWPM = 100;
-    typer.data.speedBonus = 5;
+
+    typer.data.newBonus = 2;      
 
     typer.data.vowelBaseCost = 50;
     typer.data.consonantBaseCost = 10;
@@ -543,6 +605,8 @@ angular.module('typerApp', [])
     typer.data.maxKeyboard = 1000;
 
     typer.floaterCount = 0;
+    typer.nextCount = 0;
+    typer.currentCount = 0;
     typer.recentWords = [];
 
 
@@ -693,6 +757,25 @@ angular.module('typerApp', [])
       typer.data.keyboardPurchased++;
     };
 
+    typer.purchaseRandomConsonant = function() {
+      var lockedConsonants = typer.data.consonants.filter(consonant => !typer.data.unlockedLetters.includes(consonant));
+      var random = Math.floor(Math.random() * lockedConsonants.length - 1);
+      if (random < 0) {
+        random = 0;
+      }
+
+      typer.purchaseConsonant(lockedConsonants[random]);      
+    };
+
+    typer.purchaseRandomVowel = function() {
+      var lockedVowels = typer.data.vowels.filter(vowel => !typer.data.unlockedLetters.includes(vowel));
+      var random = Math.floor(Math.random() * lockedVowels.length - 1);
+      if (random < 0) {
+        random = 0;
+      }
+
+      typer.purchaseVowel(lockedVowels[random]);
+    };
 
     typer.purchaseVowel = function(letter) {
       typer.data.money -= typer.getVowelCost();
@@ -889,6 +972,18 @@ angular.module('typerApp', [])
       return longWord;
     }
     
+    typer.getMaxSpaces = function() {
+      var max = 0;
+
+      typer.data.words.forEach(function(word) {
+        if (word.word.length > max) {
+          max = word.word.length;
+        }
+      });
+
+      return max;
+    };
+
     typer.getLongestWord = function() {
       var typedWords = typer.data.words.filter(word => word.typeCount > 0);
 
@@ -923,29 +1018,36 @@ angular.module('typerApp', [])
       var bonus = 1;
 
       if (typer.getUnlockedWords().length > 1) {    //no bonuses on duplicate words    
-        bonus = 1 + (typer.data.streakBonus * (typer.data.streak / typer.data.maxStreak));
+        bonus = 1 + (typer.data.maxStreakBonus * (typer.data.streak / typer.data.maxStreak));
 
-        if (bonus > typer.data.streakBonus) {
-          bonus = typer.data.streakBonus;
+        if (bonus > typer.data.maxStreakBonus + typer.getUpgradeStreak()) {
+          bonus = typer.data.maxStreakBonus + typer.getUpgradeStreak();
         }
       }
       return bonus;
+    };
+    typer.getStreakMultiplierSize = function() {
+      var multi = typer.getStreakBonus();
+      var percent = multi/typer.data.maxStreakBonus;
+      var rem = 1 + percent;
+      return rem + "rem";
+    };
+    typer.getSpeedMultiplierSize = function() {
+      var multi = typer.getSpeedBonus();
+      var percent = multi/typer.data.maxSpeedBonus;
+      var rem = 1 + percent;
+      return rem + "rem";
     };
 
     typer.getSpeedBonus = function() {
       var bonus = 1;
 
       if (typer.getUnlockedWords().length > 1) {  
-        var wpm = typer.getWPM();
-        var bonusPercent = wpm / typer.data.speedBonusMaxWPM;
-        if (bonusPercent > 1) {
-          bonusPercent = 1;
-        }
-          
-        bonus = bonusPercent * typer.data.speedBonus;     
+        bonus = 1 + (typer.data.maxSpeedBonus * (typer.getWPM() / typer.data.maxWPM));
         
-        if (bonus < 1) {
-          bonus = 1;
+        if (bonus > typer.data.maxSpeedBonus + typer.getUpgradeSpeed())
+        {
+          bonus = typer.data.maxSpeedBonus + typer.getUpgradeSpeed();
         }
       }
       return bonus;
@@ -1141,16 +1243,20 @@ angular.module('typerApp', [])
           typer.data.correct = true;
 
           if (typer.getUnlockedWords().length > 1) {
-            typer.data.streak++;
+            //add multiple words if space
+            typer.data.streak += typer.data.currentWord.word.split(" ").length;
 
             if (typer.data.streak > typer.data.highestStreak) {
               typer.data.highestStreak = typer.data.streak;
             }
   
-            typer.recentWords.push({
-              word: typer.data.currentWord.word,
-              typedOn: Date.now()
+            typer.data.currentWord.word.split(" ").forEach(function(word) {
+              typer.recentWords.push({
+                word: word,
+                typedOn: Date.now()
+              });
             });
+            
 
           }
           
@@ -1201,18 +1307,49 @@ angular.module('typerApp', [])
     });
 
     $(document).keypress(function(e){   
-      if (!typer.data.correct && !typer.data.incorrect && e.key.toUpperCase() != "ENTER") {
+      if (["1","2","3","4","5","6","7","8","9","0"].includes(e.key)) {
+        switch (e.key) {
+          case "1":
+            if (typer.data.money >= typer.getVowelCost()) {
+              typer.purchaseRandomVowel();
+            }            
+            break;
+          case "2":
+            if (typer.data.money >= typer.getConsonantCost()) {
+              typer.purchaseRandomConsonant();
+            }            
+            break;
+          case "3":
+            if (typer.data.money >= typer.getSpaceCost()) {
+              typer.purchaseSpace();
+            }            
+            break;
+          case "4":
+            if (typer.data.money >= typer.getKeyboardCost()) {
+              typer.purchaseKeyboard();
+            }            
+            break;
+          case "5":
+            if (typer.data.money >= typer.getLuckCost()) {
+              typer.purchaseLuck();
+            }            
+            break;
+        }
+      }
+      else if (!typer.data.correct && !typer.data.incorrect && e.key.toUpperCase() != "ENTER") {
         if (typer.data.word.length == 0 && e.key.toUpperCase() == " ") {
           //if space is the first thing pressed, don't count as error.
         } else {
           if (e.key.toUpperCase() != "BACKSPACE")
-          typer.data.word += e.key.toUpperCase();
-          $scope.$apply();     
+          typer.data.word += e.key.toUpperCase();   
         }        
       }
       if (e.key == "'" || e.key.toUpperCase() == "BACKSPACE" || e.key.toUpperCase == " ") {
         e.preventDefault();
-      }                    
+      }     
+      
+      
+      $scope.$apply();  
     });
       
   });

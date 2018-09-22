@@ -11,18 +11,18 @@
       gtag('config', 'UA-53725010-3');
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">    
+    <script src="scripts/popper.min.js"></script>    
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <script src="scripts/jquery-3.3.1.slim.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/angular.min.js"></script>    
+    <link rel="stylesheet" href="styles/all.css">    <!--Font-Awesome-->
     
     <script src="scripts/anime.js"></script>
     <script src="scripts/IdleTyper.js"></script>
 
-    <link rel="stylesheet" href="type.css"/>
-    <link rel="stylesheet" href="scripts/animate.css"/>
+    <link rel="stylesheet" href="styles/type.css"/>
+    <link rel="stylesheet" href="styles/animate.css"/>
 
     <title>Typing Incremental</title>
     <link rel="shortcut icon" href="images/favicon.ico" />
@@ -115,7 +115,7 @@
                 <div class="col-4">
                   Speed: {{typer.getWPM()}} WPM
                   <br/>
-                  Speed Multiplier: {{typer.getSpeedBonus() | number : 1}}x
+                  <span>Speed Multiplier: </span><span ng-style="{ 'font-size' : (typer.getSpeedMultiplierSize())}">{{typer.getSpeedBonus() | number : 1}}x</span>
                   <br/>
                   <span ng-show="typer.getWPM() == typer.data.highestWPM && typer.data.highestWPM > 0" class="red record animated pulse infinite">New Record!</span>
                 </div>
@@ -128,7 +128,7 @@
                 <div class="col-4">
                   Streak: {{typer.data.streak}}
                   <br/>
-                  Streak Multiplier: {{typer.getStreakBonus() | number : 1}}x
+                  <span>Streak Multiplier: </span><span ng-style="{ 'font-size' : (typer.getStreakMultiplierSize())}">{{typer.getStreakBonus() | number : 1}}x</span>
                   <br/>
                   <span ng-show="typer.data.streak == typer.data.highestStreak && typer.data.highestStreak > 0" class="red record animated pulse infinite">New Record!</span>
                 </div>
@@ -178,19 +178,19 @@
                 </div>
               </div>
               <br><br>
-              <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases max word size by 1 character.<br/><br/>Current max: {{typer.data.spacePurchased + typer.getUpgradeSpaces()}} characters">
-                <button id="btnSpace" ng-style="{ 'pointer-events' : (typer.data.money < typer.getSpaceCost()) ? 'none' : 'auto' }"  ng-disabled="typer.data.money < typer.getSpaceCost()" ng-show="typer.data.spacePurchased < typer.data.maxSpace" ng-click="typer.purchaseSpace();" type="button" class="btn btn-secondary">
+              <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases max word size by 1 character.<br/><br/>Current max: {{typer.data.spacePurchased + typer.getUpgradeSpaces()}} characters<br/><br/>Hotkey: [3]">
+                <button id="btnSpace" ng-style="{ 'pointer-events' : (typer.data.money < typer.getSpaceCost()) ? 'none' : 'auto' }"  ng-disabled="typer.data.money < typer.getSpaceCost()" ng-show="typer.data.spacePurchased < typer.getMaxSpaces()" ng-click="typer.purchaseSpace();" type="button" class="btn btn-secondary">
                   Buy Character - ${{typer.getSpaceCost() | number}}
                 </button>
               </div>
 
-              <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases money earned by $1 per letter.<br/><br/>Current: ${{typer.getKeyboardValue()}} per letter">
+              <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases money earned by $1 per letter.<br/><br/>Current: ${{typer.getKeyboardValue()}} per letter<br/><br/>Hotkey: [4]">
                 <button id="btnKeyboard" ng-style="{ 'pointer-events' : (typer.data.money < typer.getKeyboardCost()) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.getKeyboardCost()" ng-show="typer.data.keyboardPurchased < typer.data.maxKeyboard" ng-click="typer.purchaseKeyboard();" type="button" class="btn btn-secondary">
                   Improve Keyboard - ${{typer.getKeyboardCost() | number}}
                 </button>
               </div>
 
-              <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases the chance of getting a word you've never typed correctly by 1%.<br/><br/>Current luck: {{typer.data.luckPurchased}}%">
+              <div class="d-inline-block" tabindex="0" data-trigger="hover" data-toggle="popover" data-placement="top" data-html="true" data-content="Increases the chance of getting a word you've never typed correctly by 1%.<br/><br/>Current luck: {{typer.data.luckPurchased}}%<br/><br/>Hotkey: [5]">
                 <button id="btnLuck"  ng-style="{ 'pointer-events' : (typer.data.money < typer.getLuckCost()) ? 'none' : 'auto' }" ng-disabled="typer.data.money < typer.getLuckCost()" ng-show="typer.data.luckPurchased + typer.getUpgradeLuck() < typer.data.maxLuck" ng-click="typer.purchaseLuck();" type="button" class="btn btn-secondary" >
                   Buy Luck - ${{typer.getLuckCost() | number}}
                 </button>
@@ -282,7 +282,7 @@
                           </button>
                         </p>                        
                       </div>
-                      <div class="card-footer">
+                      <div class="card-footer" ng-style="{display: (typer.data.upgrades.length <= ($index + 1)) ? 'none' : 'auto' }">
                         <small class="text-muted">Purchased: {{typer.data.upgrades[$index + 1].purchased}}</small>
                       </div>
                     </div>
@@ -301,7 +301,7 @@
                           </button>
                         </p>
                       </div>
-                      <div class="card-footer">
+                      <div class="card-footer" ng-style="{display: (typer.data.upgrades.length <= ($index + 2)) ? 'none' : 'auto' }">
                         <small class="text-muted">Purchased: {{typer.data.upgrades[$index + 2].purchased}}</small>
                       </div>
                     </div>     
