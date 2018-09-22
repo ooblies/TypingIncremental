@@ -8,7 +8,15 @@ html {
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
 }
-
+header {
+  position: absolute;
+  top:0px;
+  width:100%;
+  z-index: 1;
+}
+.no-focus:focus {
+  outline: 0;
+}
 .red {
     color: #dc3545;
 }
