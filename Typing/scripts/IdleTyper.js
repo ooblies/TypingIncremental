@@ -793,6 +793,12 @@ angular.module('typerApp', [])
       return !typer.data.unlockedLetters.includes(letter);
     };
 
+    typer.resetList = function() {
+      typer.data.modalPage = 2;
+      typer.showModal();
+      typer.save();
+    }
+
     typer.completeList = function() {
       typer.data.modalPage = 1;
       typer.data.prestigePoints += typer.data.currentList.pointsOnCompletion;
