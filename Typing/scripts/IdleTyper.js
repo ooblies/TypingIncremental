@@ -237,6 +237,11 @@ angular.module('typerApp', [])
             });
         }
 
+        //Check for dupe upgrades
+        typer.data.upgrades = typer.data.upgrades.filter((obj, pos, arr) => {
+          return arr.map(mapObj => mapObj["code"]).indexOf(obj["code"]) === pos;
+        });
+        
         typer.save();
 
       if (typer.data.words.length == 0) {
