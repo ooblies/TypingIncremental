@@ -248,7 +248,7 @@
                   </div> 
                   <br><br>
                   
-                  <div class="card-deck" ng-repeat="upgrade in typer.data.upgrades" ng-if="$index % 3 == 0">
+                  <div class="card-deck" ng-repeat="upgrade in typer.data.upgrades  track by $index" ng-if="$index % 3 == 0">
                     <div class="card">
                       <div class="card-header">
                         <h5>{{upgrade.name}}</h5>
@@ -320,7 +320,7 @@
                     </div>
                   </div>               
                   <br>    
-                  <div class="card modal-card" ng-repeat="list in typer.data.lists" ng-if="list.unlocked">
+                  <div class="card modal-card" ng-repeat="list in typer.data.lists track by $index" ng-if="list.unlocked">
                     <div class="card-header">
                       <div class="container">
                         <div class="row">
